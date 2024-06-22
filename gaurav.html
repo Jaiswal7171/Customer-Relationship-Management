@@ -1,0 +1,25 @@
+
+static adminlogin = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const admin = await Admin.findOne({ where: { email } });
+
+    if (!admin || !await bcrypt.compare(password, admin.password)) {
+      return res.status(401).json({ message: "Invalid email or password" });
+    }
+
+    
+    const payload = {
+      id: admin.id,
+      admin_name: admin.admin_name,
+      email: admin.email,
+      designation: admin.designation
+    };
+    const token = generateToken(payload);
+    res.cookie('token', token, { httpOnly: true });
+    res.redirect('/dashboard');
+  } catch (error) {
+    console.error(error);
+    res.status(500).render('error', { message: "Server Error" });
+  }
+};

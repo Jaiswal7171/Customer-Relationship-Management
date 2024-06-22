@@ -1,0 +1,1039 @@
+<%- include('header.ejs') %>
+
+
+
+<% if (section === 'leads') { %>
+
+
+<!----------------------------------------------------------------------------------View Customers Section----------------------------------------------------------------------------------->
+        <div class="main-content">
+            <div class="dashboard-breadcrumb mb-25">
+                <h2>Leads Section</h2>
+               
+            </div>
+                <div class="row">
+                <div class="col-xxl-12">
+                    <div class="panel">
+                        <div class="panel-header">
+                            <h5>Lead & Folloup Details </h5>
+                            <div id="tableSearch"></div>
+                        </div>
+                        <div class="panel-body">
+                            <table class="table table-dashed recent-order-table" id="myTable">
+                                <thead>
+                                    <tr>
+                                        <th>Order ID</th>
+                                        <th>FollowUp</th>
+                                        <th>Company Name</th>
+                                        <th>Company Mobile</th>
+                                        <th>WhatsApp Number</th>
+                                        <th>Company Category</th>
+                                        <th>Email</th>
+                                        <th>Address</th>
+                                        <th>City</th>
+                                        <th>State</th>
+                                        <th>Call Date</th>
+                                        <th>Call Time</th>
+                                        <th>Timestamp</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% if (docs && docs.length) { // Checking if docs array exists and has items %>
+                                        <% docs.forEach((item, index) => { %>
+                                            <tr>
+                                                <td><%= index + 1 %></td> <!-- Displaying index + 1 as Order ID -->
+                                                <td><a href="/addfollowup?leadid=<%= item.id %>&leadName=<%= item.companyName %>"><i class="fa fa-eye"></i></a></td>
+                                                <% if (item.d_id == 1) { %> <!-- Checking item.d_id for conditional formatting -->
+                                                    <td class="text-warning"><%= item.companyName %></td>
+                                                <% } else { %>
+                                                    <td><%= item.companyName %></td>
+                                                <% } %>    
+                                                <td><%= item.companyMobile %></td>
+                                                <td><%= item.whatsappNumber %></td>
+                                                <td><%= item.companyCategory %></td>
+                                                <td><%= item.email %></td>
+                                                <td><%= item.address %></td>
+                                                <td><%= item.city %></td>
+                                                <td><%= item.state %></td>
+                                                <td><%= item.callDate %></td>
+                                                <td><%= item.callTime %></td>
+                                                <td><%= new Date(item.createdAt).toLocaleString(); %></td> <!-- Displaying timestamp -->
+                                            </tr>
+                                        <% });
+                                        } else { %>
+                                            <tr>
+                                                <td colspan="13">No customers found</td> <!-- colspan should match the number of columns -->
+                                            </tr>
+                                    <% } %>
+                                </tbody>
+                            </table>
+                            
+                           
+                            <div class="table-bottom-control"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+   
+
+
+<!----------------------------------------------------------------------------------View imported Lead Section----------------------------------------------------------------------------------->
+
+<% } else if (section === 'imported_lead') { %>
+
+<div class="main-content">
+    <div class="dashboard-breadcrumb mb-25">
+        <h2>Imported Lead</h2>
+       
+    </div>
+        <div class="row">
+        <div class="col-xxl-12">
+            <div class="panel">
+                <div class="panel-header">
+                    <h5>Your Imported Customer Details</h5>
+                    <div id="tableSearch"></div>
+                </div>
+                <div class="panel-body">
+                   <table class="table table-dashed recent-order-table" id="myTable">
+                       <thead>
+                           <tr>
+                               <th>Order ID</th>
+                               <th>FollowUp</th>
+                               <th>Move</th>
+                               <th>Company Name</th>
+                               <th>Company Mobile</th>
+                               <th>WhatsApp Number</th>
+                               <th>Company Category</th>
+                               <th>Email</th>
+                               <th>Address</th>
+                               <th>City</th>
+                               <th>State</th>
+                               <th>Call Date</th>
+                               <th>Call Time</th>
+                               <th>Timestamp</th>
+                          
+                           </tr>
+                       </thead>
+                       <tbody>
+                           <% if (docs && docs.length) {
+                               docs.forEach((item, index) => { %>
+                                   <tr>
+                                       <td><%= index + 1 %></td>
+                                       <td><a href="/addfollowup?id=<%= item.id %>"><i class="fa fa-eye"></i></a></td>
+                                       <td><a href="/saveanother?id=<%= item.id %>"><i class='fas fa-angle-double-right'></i></a></td>
+                                    <td><%= item.companyName %></td>
+                                       <td><%= item.whatsappNumber %></td>
+                                       <td><%= item.companyCategory %></td>
+                                       <td><%= item.email %></td>
+                                       <td><%= item.address %></td>
+                                       <td><%= item.city %></td>
+                                       <td><%= item.state %></td>
+                                  
+                                       <td><%= item.callDate %></td>
+                                       <td><%= item.callTime %></td>
+                                       <td><%= item.timestamp %></td>
+                                       <td><%= item.timestamp %></td>
+                                    
+                                   </tr>
+                               <% });
+                           } else { %>
+                               <tr>
+                                   <td colspan="15">No customers found</td>
+                               </tr>
+                           <% } %>
+                       </tbody>
+                   </table>
+                   
+                    <div class="table-bottom-control"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<!----------------------------------------------------------------------------------all  imported Lead Section----------------------------------------------------------------------------------->
+
+<% } else if (section === 'all_imported_lead') { %>
+
+    <div class="main-content">
+        <div class="dashboard-breadcrumb mb-25">
+            <h2>Imported Lead</h2>
+           
+        </div>
+            <div class="row">
+            <div class="col-xxl-12">
+                <div class="panel">
+                    <div class="panel-header">
+                        <h5>All  Imported Customer Details</h5>
+                        <div id="tableSearch"></div>
+                    </div>
+                    <div class="panel-body">
+                       <table class="table table-dashed recent-order-table" id="myTable">
+                           <thead>
+                               <tr>
+                                   <th>Order ID</th>
+                                   <th>FollowUp</th>
+                                   <th>Company Name</th>
+                                   <th>Company Mobile</th>
+                                   <th>WhatsApp Number</th>
+                                   <th>Company Category</th>
+                                   <th>Email</th>
+                                   <th>Address</th>
+                                   <th>City</th>
+                                   <th>State</th>
+                                   <th>Call Date</th>
+                                   <th>Call Time</th>
+                                   <th>Timestamp</th>
+                              
+                               </tr>
+                           </thead>
+                           <tbody>
+                               <% if (docs && docs.length) {
+                                   docs.forEach((item, index) => { %>
+                                       <tr>
+                                           <td><%= index + 1 %></td>
+                                           <td><a href="/addfollowup?id=<%= item.id %>"><i class="fa fa-eye"></i></a></td>
+                                        <td><%= item.companyName %></td>
+                                           <td><%= item.whatsappNumber %></td>
+                                           <td><%= item.companyCategory %></td>
+                                           <td><%= item.email %></td>
+                                           <td><%= item.address %></td>
+                                           <td><%= item.city %></td>
+                                           <td><%= item.state %></td>
+                                      
+                                           <td><%= item.callDate %></td>
+                                           <td><%= item.callTime %></td>
+                                           <td><%= item.timestamp %></td>
+                                           <td><%= item.timestamp %></td>
+                                        
+                                       </tr>
+                                   <% });
+                               } else { %>
+                                   <tr>
+                                       <td colspan="15">No customers found</td>
+                                   </tr>
+                               <% } %>
+                           </tbody>
+                       </table>
+                       
+                        <div class="table-bottom-control"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<!------------------------------------------------------------------------------------------- View Follow Ups----------------------------------------------------------------------------------------------------------->
+        
+
+<% } else if (section === 'view_followups') { %>
+
+      <!-- main sidebar end -->
+    <!-- main content start -->
+    <div class="main-content">
+        <div class="dashboard-breadcrumb mb-25">
+            <h2>Lead Follow Up Details</h2>
+            <div class="input-group dashboard-filter">
+                <input type="text" class="form-control" name="basic" id="dashboardFilter" readonly>
+                <label for="dashboardFilter" class="input-group-text"><i class="fa-light fa-calendar-days"></i></label>
+            </div>
+        </div>
+ 
+        <div class="row">
+          
+            <div class="col-xxl- col-md-12">
+                <div class="panel">
+                    <div class="panel-header">              
+ 
+                        <h5><b>LeadName </b>:- <%= get_leadName %>  <u>&</u>  <b> LeadID </b> :- <%= customer_id %> </h5>
+                        <div class="btn-box">
+                            <a href="" class="btn btn-sm btn-primary">Profile</a>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <ul class="hr-recent-activity">
+                            <% docs.forEach(detail => { %>
+                                <li>
+                                    <div class="left">
+                                        <span class="activity-name"><%= detail.followup_date %></span>
+                                        <span class="activity-short"><%= detail.description %> </span>
+                                    </div>
+                                    <div class="right">
+                                        <span class="activity-time"><%= new Date(detail.createdAt).toLocaleString() %></span>
+                                    </div>
+                                 
+                                </li>
+                                
+                            <% }) %>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<!------------------------------------------------------------------------------------------- Edit Employee Profile----------------------------------------------------------------------------------------------------------->
+
+
+
+<% } else if (section === 'workdeatails') { %>
+
+
+  <div class="main-content">
+      <div class="dashboard-breadcrumb mb-25">
+          <h2>Work Deatils</h2>
+          <div class="input-group dashboard-filter">
+              <input type="text" class="form-control" name="basic" id="dashboardFilter" readonly>
+              <label for="dashboardFilter" class="input-group-text"><i class="fa-light fa-calendar-days"></i></label>
+          </div>
+      </div>
+
+      <div class="row">
+        
+          <div class="col-xxl- col-md-12">
+              <div class="panel">
+                  <div class="panel-header">              
+
+                      <h5>Detail Information For Your Work</h5>
+                      <div class="btn-box">
+                          <a href="" class="btn btn-sm btn-primary">Profile</a>
+                      </div>
+                  </div>
+                  <div class="panel-body">
+                      <ul class="hr-recent-activity">
+                          <% docs.forEach(detail => { %>
+                              <li>
+                                  <div class="left">
+                                      <span class="activity-name"><%=detail.ProjectName %> || <%= detail.TaskName %></span>
+                                      <span class="small"></span></span>
+                                      <span class="activity-short"> <%= detail.description %></span>
+                                  </div>
+                                  <div class="right">
+                                      <span class="activity-time"><%= new Date(detail.createdAt).toLocaleString() %></span>
+                                  </div>
+                               
+                              </li>
+                              
+                          <% }) %>
+                      </ul>
+                  </div>
+              </div>
+          </div>
+          
+         
+        
+      </div>
+<!----------------------------------------------------------------------------------View Customers Section----------------------------------------------------------------------------------->
+<% } else if (section === 'view_leaves') { %>
+    <div class="main-content">
+        <div class="dashboard-breadcrumb mb-25">
+            <h2>Leave Deatils Section</h2>
+            <div class="input-group dashboard-filter">
+                <input type="text" class="form-control" name="basic" id="dashboardFilter" readonly>
+                <label for="dashboardFilter" class="input-group-text"><i class="fa-light fa-calendar-days"></i></label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xxl-12">
+                <div class="panel">
+                    <div class="panel-header">
+                        <h5>Your Leaves</h5>
+                        <div id="tableSearch"></div>
+                    </div>
+                    <div class="panel-body">
+                       <table class="table table-dashed recent-order-table" id="myTable">
+                           <thead>
+                               <tr>
+                                   <th>Order ID</th>
+                                   <th>Message To</th>
+                                   <th>Reason</th>
+                                   <th>Description</th>
+                                   <th>Leave Start Date</th>
+                                   <th>Leave End Date</th>
+                                   <th>Timestamp</th>
+                               </tr>
+                           </thead>
+                           <tbody>
+                               <% if (docs && docs.length) {
+                                   docs.forEach((item, index) => { %>
+                                       <tr>
+                                           <td><%= index + 1 %></td>
+                                           <td><%= item.message_to %></td>
+                                           <td><%= item.leave_reason %></td>
+                                           <td><%= item.leave_description %></td>
+                                           <td><%= new Date(item.leave_start_date).toLocaleString()  %></td>
+                                           <td><%= new Date(item.leave_end_date).toLocaleString() %></td>
+                                           <td><%= new Date(item.createdAt).toLocaleString() %></td>
+                                       </tr>
+                                   <% });
+                               } else { %>
+                                   <tr>
+                                       <td colspan="7">No customers found</td>
+                                   </tr>
+                               <% } %>
+                           </tbody>
+                       </table>
+                       
+                        <div class="table-bottom-control"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!----------------------------------------------------------------------------------View Customers Section----------------------------------------------------------------------------------->
+
+
+
+
+
+
+    <% } else if (section === 'company_Details') { %>
+
+    <div class="main-content">
+        <div class="dashboard-breadcrumb mb-25">
+            <h2>Company Details</h2>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="panel">
+                    <div class="panel-body">
+                        <div class="profile-sidebar">
+                            <hr>
+                            <div class="top">
+                                <div class="image-wrap">
+                                    <div class="part-img rounded-circle overflow-hidden">
+                                        <img src="assets/images/admin.png" alt="admin">
+                                    </div>
+                                    <button class="image-change"><i class="fa-light fa-camera"></i></button>
+                                </div>
+                                <div class="part-txt">
+                                    <h4 class="admin-name"><%= data.company_name %></h4>
+                                    <span class="admin-role"><%= data.company_category %></span>
+                                    <div class="admin-social">
+                                        <a href="<%= data.company_facebook %>"><i class="fa-brands fa-facebook-f"></i></a>
+                                        <a href="<%= data.company_instagram %>"><i class="fa-brands fa-instagram"></i></a>
+                                        <a href="<%= data.company_linkedin %>"><i class="fa-brands fa-linkedin"></i></a>
+                                        <a href="<%= data.company_website %>"><i class="fa fa-trash"></i></a>
+                                       
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bottom">
+                                <h6 class="profile-sidebar-subtitle">Communication Info</h6>
+                                <ul>
+                                    <li><span>Ceo Name:</span><%= data.company_website %></li>
+                                    <li><span>Company MobileNo:</span><%= data.company_phone %></li>
+                                    <li><span>Company WhatsAppNo:</span><%= data.company_whatsappNo %></li>
+                                    <li><span>Company Mail:</span><%= data.company_email %></li>
+                                    <li><span>Address:</span><%= data.company_address %></li>
+                                    <li><span>Pincode:</span><%= data.company_pincode %></li>
+                             
+                                </ul>
+                                <h6 class="profile-sidebar-subtitle">About Me</h6>
+                                <p><%= data.company_details %></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="row mb-25">
+                    <div class="col-lg-4 col-6 col-xs-12">
+                        <div class="dashboard-top-box rounded-bottom panel-bg">
+                            <div class="left">
+                                <h3><%= clientcount %></h3>
+                                <p>Our Total Clients</p>
+                                <a href="/clients">View Details</a>
+                            </div>
+                            <div class="right">
+                                <span class="text-primary">+16.24%</span>
+                                <div class="part-icon rounded">
+                                    <span><i class="fa-light fa-bag-shopping"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-6 col-xs-12">
+                        <div class="dashboard-top-box rounded-bottom panel-bg">
+                            <div class="left">
+                                <h3>10</h3>
+                                <p>Our Team Members</p>
+                                <a href="#">Excluding orders in transit</a>
+                            </div>
+                            <div class="right">
+                                <span class="text-primary">+16.24%</span>
+                                <div class="part-icon rounded">
+                                    <span><i class="fa-light fa-bag-shopping"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-6 col-xs-12">
+                        <div class="dashboard-top-box rounded-bottom panel-bg">
+                            <div class="left">
+                                <h3>5</h3>
+                                <p>Company Branches</p>
+                                <a href="#">See details</a>
+                            </div>
+                            <div class="right">
+                                <span class="text-primary">+16.24%</span>
+                                <div class="part-icon rounded">
+                                    <span><i class="fa-light fa-user"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+<!-- vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv -->
+
+
+
+
+
+                <div class="panel">
+                    <div class="panel-header">
+                        <h5>Compnay memeories</h5>
+                        <div class="dropdown">
+                            <a href="#" class="btn btn-sm btn-primary">View All</a>
+                        </div>
+                    </div>
+                  
+                    <div class="panel-body">
+                        <div class="swiper responsive-swiper">
+                            <div class="swiper-wrapper">
+
+
+                                <% images.forEach(item => { %>
+                                    <div class="swiper-slide">
+                                        <img src="/gallery/<%= item.image %>" alt="image" style="height: 100px;width: 170px">
+                                    </div>
+                                <% }) %>
+                                
+                                
+                               
+                            </div>
+                            <div class="swiper-pagination"></div>
+                        </div>
+                    </div>
+
+
+                    <!-- 2 -->
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-6 mb-4"> <!-- Add a margin-bottom class -->
+                                <div class="panel">
+                                    <div class="panel-body">
+                                        <div class="swiper effect-flip-swiper">
+                                            <div class="swiper-wrapper">
+
+                                                <% event_gallery.forEach(item => { %>
+
+                                                <div class="swiper-slide">
+                                                    <img src="/EventsGallery/<%= item.image %>" alt="image" style="height: 240px;width: 380px">
+                                                </div>
+
+                                                <% }) %>
+                                            </div>
+                                            <div class="swiper-pagination"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    
+                            <div class="col-lg-6 col-sm-6 mb-4"> <!-- Add a margin-bottom class -->
+                                <div class="panel">
+                                    <div class="panel-body">
+                                        <div class="swiper effect-creative-swiper">
+                                            <div class="swiper-wrapper">
+
+                                                <% occasion.forEach(item => { %>
+
+
+                                                <div class="swiper-slide">
+                                                    <img src="/occasion_images/<%= item.image %>" alt="image"  style="height: 240px;width: 380px">
+                                                </div>
+
+                                                <% }) %>
+
+
+                                            </div>
+                                            <div class="swiper-pagination"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                    
+
+
+
+                </div>
+
+
+<!-- vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv -->
+
+
+
+            </div>
+        </div>
+
+
+      
+<!-------------------------------------------------------------------- Add Task--------------------------------------------------------------------------->
+
+<% } else if (section === 'view_task') { %>
+    <div class="main-content">
+        <div class="dashboard-breadcrumb mb-25">
+            <h2>Task Management</h2>
+          
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="panel">
+                    
+                    <div class="panel-body">
+                        <form action="/updateTask/<%= data.id %>" method="POST">
+                            <div class="row g-3">
+                                <div class="col-xxl-12 col-lg-12 col-sm-12">
+                                    <label class="form-label">Description</label>
+                                    <textarea name="description" id="taskTextarea" class="form-control form-control-sm" rows="15" cols="50" style="width: 100%;" onchange="updateDescription(this.value)"><%= data.description %></textarea>
+                                </div>
+                            </div>
+                        
+                            <script>
+                                const updateDescription = async (newDescription) => {
+                                    try {
+                                        const id = '<%= data.id %>'; // Assuming you're passing the task ID to the view
+                                        const response = await fetch(`/updateTask/${id}`, {
+                                            method: 'PUT',
+                                            headers: {
+                                                'Content-Type': 'application/json',
+                                            },
+                                            body: JSON.stringify({ description: newDescription }),
+                                        });
+                            
+                                        if (!response.ok) {
+                                            throw new Error('Failed to update task description');
+                                        }
+                            
+                                        // No need to log data
+                                    } catch (error) {
+                                        console.error('Error updating task description:', error);
+                                        // Handle error if needed
+                                    }
+                                }
+                            </script>
+                            
+          
+                        </form>
+                        
+                    </div>
+                </div>
+            </div>
+
+            
+<% } else if (section === 'employee_profile') { %>
+
+
+    <!-- main content start -->
+    <div class="main-content">
+        <div class="dashboard-breadcrumb mb-25">
+            <h2>Edit Profile</h2>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="panel">
+                    <div class="panel-header">
+                        <nav>
+                            <div class="btn-box d-flex flex-wrap gap-1" id="nav-tab" role="tablist">
+                                <button class="btn btn-sm btn-outline-primary active" id="nav-edit-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-edit-profile" type="button" role="tab" aria-controls="nav-edit-profile" aria-selected="true">Edit Profile</button>
+                                <button class="btn btn-sm btn-outline-primary" id="nav-change-password-tab" data-bs-toggle="tab" data-bs-target="#nav-change-password" type="button" role="tab" aria-controls="nav-change-password" aria-selected="false">Change Password</button>
+                            </div>
+                        </nav>
+                    </div>
+                    <div class="panel-body">
+                        <div class="tab-content profile-edit-tab" id="nav-tabContent">
+                            <div class="tab-pane fade show active" id="nav-edit-profile" role="tabpanel" aria-labelledby="nav-edit-profile-tab" tabindex="0">
+                                <form>
+                                    <div class="profile-edit-tab-title">
+                                        <h6>Employee Information</h6>
+                                    </div>
+                                    <div class="public-information mb-25">
+                                        <div class="row g-4">
+                                            <div class="col-md-3">
+                                                <div class="admin-profile">
+                                                    <div class="image-wrap">
+                                                        <div class="part-img rounded-circle overflow-hidden">
+                                                            <img src="assets/images/admin.png" alt="admin">
+                                                        </div>
+                                                        <button class="image-change"><i class="fa-light fa-camera"></i></button>
+                                                    </div>
+                                                    <span class="admin-name"><%= getData.employee_name%></span>
+                                         
+                                                </div>
+                                            </div>
+                                            <div class="col-md-9">
+                                                <div class="row g-3">
+                                                    <div class="col-sm-6">
+                                                        <div class="input-group">
+                                                            <span class="input-group-text"><i class="fa-light fa-user"></i></span>
+                                                            <input type="text" class="form-control" placeholder="Full Name" value="<%= getData.employee_name%>"  title="Name">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="input-group">
+                                                            <span class="input-group-text"><i class="fa-light fa-at"></i></span>
+                                                            <input type="text" class="form-control" placeholder="Desgination" value="<%= getData.designation%>" title="Desgination">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-6">
+                                                        <div class="input-group">
+                                                            <span class="input-group-text"><i class="fas fa-envelope email-icon"></i></span>
+                                                            <input type="text" class="form-control" placeholder="Your Email" value="<%= getData.email%>" title="PersonalEmail">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="input-group">
+                                                            <span class="input-group-text"><i class="fas fa-male"></i></span>
+                                                            <input type="text" class="form-control" placeholder="Username" value="<%= getData.gender%>" title="Gender">
+                                                        </div>
+                                                    </div>
+
+
+
+                                                    <div class="col-sm-6">
+                                                        <div class="input-group">
+                                                            <span class="input-group-text"><i class="fas fa-phone-alt"></i></span>
+                                                            <input type="text" class="form-control" placeholder="Phone Number" value="<%= getData.phone %>" title="PhoneNo">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="input-group">
+                                                            <span class="input-group-text"><i class="fab fa-whatsapp"></i></span>
+                                                            <input type="text" class="form-control" placeholder="WhatsApp Number" value="<%= getData.whatsapp_no %>" title="WhatsAppNo">
+                                                        </div>
+                                                    </div>
+
+                                                 
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="profile-edit-tab-title">
+                                        <h6>Other  Informations</h6>
+                                    </div>
+                                    <div class="private-information mb-25">
+                                        <div class="row g-3">
+                                            <div class="col-md-4 col-sm-6">
+                                                <div class="input-group">
+                                                    <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
+                                                    <input type="text" class="form-control" placeholder="Unique ID" value="<%= getData.Manager.manager_name %>" title="Manager Name">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 col-sm-6">
+                                                <div class="input-group">
+                                                    <span class="input-group-text"><i class="fas fa-chart-line"></i></span>
+                                                    <input type="text" class="form-control" name="experince" value="<%= getData.experience %>" title="Experince">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 col-sm-6">
+                                                <div class="input-group">
+                                                    <span class="input-group-text"><i class="fas fa-graduation-cap"></i></span>
+                                                    <input type="text" class="form-control" placeholder="Unique ID" value="<%= getData.qualification %>" title="Qualification">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 col-sm-6">
+                                                <div class="input-group">
+                                                    <span class="input-group-text"><i class="fa-solid fa-address-book"></i></span>
+                                                    <input type="text" class="form-control" placeholder="Email" value="<%= getData.address %>" title="Address">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4 col-sm-6">
+                                                <div class="input-group">
+                                                    <span class="input-group-text"><i class='fas fa-city'></i></span>
+                                                    <input type="text" class="form-control" placeholder="City" value="<%= getData.city%>" title="City">
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-md-4 col-sm-6">
+                                                <div class="input-group">
+                                                    <span class="input-group-text"><i class='far fa-building'></i></span>
+                                                    <input type="url" class="form-control" placeholder="Youtube" value="<%= getData.state%>" title="State">
+                                                </div>
+                                            </div>
+
+
+
+                                            <div class="col-md-4 col-sm-6">
+                                                <div class="input-group">
+                                                    <span class="input-group-text"><i class="fas fa-suitcase"></i></span>
+                                                    <input type="tel" class="form-control" placeholder="" value="<%= getData.portfolio_link %>" title="Portfolio Link">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 col-sm-6">
+                                                <div class="input-group">
+                                                    <span class="input-group-text"><i class='fas fa-key'></i></span>
+                                                    <input type="password" class="form-control" placeholder="Password" value="***" title="Password">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4 col-sm-6">
+                                                <div class="input-group">
+                                                    <span class="input-group-text"><i class="fa-light fa-user"></i></span>
+                                                    <input type="number" class="form-control" placeholder="Password"  value="<%= getData.id %>" title="EmployeeID">
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                </form>
+                            </div>
+                            <div class="tab-pane fade" id="nav-change-password" role="tabpanel" aria-labelledby="nav-change-password-tab" tabindex="0">
+                                <form>
+                                    <div class="profile-edit-tab-title">
+                                        <h6>Change Password</h6>
+                                    </div>
+                                    <div class="social-information">
+                                        <div class="row g-3">
+                                            <div class="col-12">
+                                                <div class="input-group">
+                                                    <span class="input-group-text"><i class="fa-light fa-lock"></i></span>
+                                                    <input type="password" class="form-control" placeholder="Current Password">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="input-group">
+                                                    <span class="input-group-text"><i class="fa-light fa-lock"></i></span>
+                                                    <input type="url" class="form-control" placeholder="New Password">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="input-group">
+                                                    <span class="input-group-text"><i class="fa-light fa-lock"></i></span>
+                                                    <input type="url" class="form-control" placeholder="Confirm Password">
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+<!---------------------------------------------------------------------------get clients--------------------------------------------------------------------------->
+
+<% } else if (section === 'get_clients') { %>
+
+
+    <div class="main-content">
+        <div class="dashboard-breadcrumb mb-25">
+            <h2>Our Clients</h2>
+            <div class="input-group dashboard-filter">
+                <input type="text" class="form-control" name="basic" id="dashboardFilter" readonly>
+                <label for="dashboardFilter" class="input-group-text"><i class="fa-light fa-calendar-days"></i></label>
+            </div>
+        </div>
+            <div class="row">
+            <div class="col-xxl-12">
+                <div class="row mb-25">
+
+
+                    <% data.forEach(item => { %>
+                    <div class="col-lg-3 col-6 col-xs-12">
+                        <div class="dashboard-top-box d-block rounded border-0 panel-bg">
+                            <div class="d-flex justify-content-between align-items-center mb-20">
+                                <div class="right">
+                                    <div class="part-icon text-light rounded">
+                                        <span><img src="data:image/webp;base64,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Zy9zdGQvSXB0YzR4bXBDb3JlLzEuMC94bWxucy8iICAgeG1sbnM6R2V0dHlJbWFnZXNHSUZUPSJodHRwOi8veG1wLmdldHR5aW1hZ2VzLmNvbS9naWZ0LzEuMC8iIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgeG1sbnM6cGx1cz0iaHR0cDovL25zLnVzZXBsdXMub3JnL2xkZi94bXAvMS4wLyIgIHhtbG5zOmlwdGNFeHQ9Imh0dHA6Ly9pcHRjLm9yZy9zdGQvSXB0YzR4bXBFeHQvMjAwOC0wMi0yOS8iIHhtbG5zOnhtcFJpZ2h0cz0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL3JpZ2h0cy8iIGRjOlJpZ2h0cz0iMjAyMiBHZXR0eSBJbWFnZXMiIHBob3Rvc2hvcDpDcmVkaXQ9IkdldHR5IEltYWdlcyIgR2V0dHlJbWFnZXNHSUZUOkFzc2V0SUQ9IjE0MjA3NjQxNTAiIHhtcFJpZ2h0czpXZWJTdGF0ZW1lbnQ9Imh0dHBzOi8vd3d3LmdldHR5aW1hZ2VzLmNvbS9ldWxhP3V0bV9tZWRpdW09b3JnYW5pYyZhbXA7dXRtX3NvdXJjZT1nb29nbGUmYW1wO3V0bV9jYW1wYWlnbj1pcHRjdXJsIiA+CjxkYzpjcmVhdG9yPjxyZGY6U2VxPjxyZGY6bGk+RnJhbmNvaXMgTmVsPC9yZGY6bGk+PC9yZGY6U2VxPjwvZGM6Y3JlYXRvcj48ZGM6ZGVzY3JpcHRpb24+PHJkZjpBbHQ+PHJkZjpsaSB4bWw6bGFuZz0ieC1kZWZhdWx0Ij5EVUJBSSwgVU5JVEVEIEFSQUIgRU1JUkFURVMgLSBTRVBURU1CRVIgMDQ6IFZpcmF0IEtvaGxpIG9mIEluZGlhIGxlYXZlcyB0aGUgZmllbGQgYWZ0ZXIgYmVpbmcgZGlzbWlzc2VkIGR1cmluZyB0aGUgRFAgV29ybGQgQXNpYSBDdXAgbWF0Y2ggYmV0d2VlbiBJbmRpYSBhbmQgUGFraXN0YW4gIG9uIFNlcHRlbWJlciAwNCwgMjAyMiBpbiBEdWJhaSwgVW5pdGVkIEFyYWIgRW1pcmF0ZXMuIChQaG90byBieSBGcmFuY29pcyBOZWwvR2V0dHkgSW1hZ2VzKTwvcmRmOmxpPjwvcmRmOkFsdD48L2RjOmRlc2NyaXB0aW9uPgo8cGx1czpMaWNlbnNvcj48cmRmOlNlcT48cmRmOmxpIHJkZjpwYXJzZVR5cGU9J1Jlc291cmNlJz48cGx1czpMaWNlbnNvclVSTD5odHRwczovL3d3dy5nZXR0eWltYWdlcy5jb20vZGV0YWlsLzE0MjA3NjQxNTA/dXRtX21lZGl1bT1vcmdhbmljJmFtcDt1dG1fc291cmNlPWdvb2dsZSZhbXA7dXRtX2NhbXBhaWduPWlwdGN1cmw8L3BsdXM6TGljZW5zb3JVUkw+PC9yZGY6bGk+PC9yZGY6U2VxPjwvcGx1czpMaWNlbnNvcj4KCQk8L3JkZjpEZXNjcmlwdGlvbj4KCTwvcmRmOlJERj4KPC94OnhtcG1ldGE+Cjw/eHBhY2tldCBlbmQ9InciPz4K"></span>
+                                    </div>
+                                </div>
+                                <div class="left">
+                                    <h3 class="fw-normal"><%= item.company_name %></h3>
+                                    <p class="d-flex justify-content-between mb-1"><small><%= item.address %> , <%= item.city %></small></p>
+                                </div>
+                            </div>
+                            <div class="progress-box">
+                                <p class="d-flex justify-content-between mb-1"> <small><%= item.service %></small></p>
+                                <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+                                    <div class="progress-bar bg-warning" style="width: 100%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <% }); %>
+            
+                  
+                </div>
+            </div>
+        </div>
+
+
+            
+<!----------------------------------------------------------------------------------Company Services----------------------------------------------------------------------------------->
+        
+<% } else if (section === 'company_Services') { %>
+<div class="main-content">
+            <div class="dashboard-breadcrumb mb-25">
+                <h2>All Customers</h2>
+                
+            </div>
+                <div class="row">
+                <div class="col-xxl-12">
+                    <div class="panel">
+                        <div class="panel-header">
+                            <h5>Customer Details</h5>
+                            <div id="tableSearch"></div>
+                        </div>
+                        <div class="panel-body">
+                           <table class="table table-dashed recent-order-table" id="myTable">
+                               <thead>
+                                   <tr>
+                                       <th>Order ID</th>
+                                       <th>Category</th>
+                                       <th>Category Based Services</th>
+                                       <th>Timestamp</th>
+                                  
+                                   </tr>
+                               </thead>
+                               <tbody>
+                                <% if (services && services.length) {
+                                    services.forEach((item, index) => { %>
+                                        <tr>
+                                            <td><%= index + 1 %></td>
+                                            <td><%= item.Category.category_name %></td>
+                                            <td><%= item.service_name %></td>
+                                            <td><%= new Date(item.createdAt).toLocaleString() %></td> <!-- Added parentheses after toLocaleString -->
+                                        </tr>
+                                    <% });
+                                } else { %>
+                                    <tr>
+                                        <td colspan="4">No services found</td>
+                                    </tr>
+                                <% } %>
+                            </tbody>
+                            
+                            
+                           </table>
+                           
+                            <div class="table-bottom-control"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+   
+ <!----------------------------------------------------------------------------------snapmessage----------------------------------------------------------------------------------->
+
+            <% } else if (section === 'snapmessage') { %>
+          
+
+                <div class="main-content">
+                    <div class="dashboard-breadcrumb mb-25">
+                        <h2>Snap Message</h2>
+                        <div class="input-group dashboard-filter">
+                            <input type="text" class="form-control" name="basic" id="dashboardFilter" readonly>
+                            <label for="dashboardFilter" class="input-group-text"><i class="fa-light fa-calendar-days"></i></label>
+                        </div>
+                    </div>
+              
+                    <div class="row">
+                      
+                        <div class="col-xxl- col-md-12">
+                            <div class="panel">
+                                <div class="panel-header">              
+              
+                                    <h5>Snap Message Automaticalley Deleted In 2 Days</h5>
+                                    <div class="btn-box">
+                                        <a href="" class="btn btn-sm btn-primary">Profile</a>
+                                    </div>
+                                </div>
+                                <div class="panel-body">
+                                    <ul class="hr-recent-activity">
+                                        <% message.forEach(detail => { %>
+                                            <li>
+                                                <div class="left">
+                                                    <span class="activity-name"><%=detail.message %></span>
+                                                    <span class="activity-short"><%= new Date(detail.createdAt).toLocaleString() %></span>
+                                                </div>
+                                            </li>
+                                            
+                                        <% }) %>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+    
+          
+<!----------------------------------------------------------------------------------View Count----------------------------------------------------------------------------------->
+
+<% } else if (section === 'countdata') { %>
+
+    <div class="main-content">
+        <div class="dashboard-breadcrumb mb-25">
+            <h2>Imported Lead</h2>
+           
+        </div>
+            <div class="row">
+            <div class="col-xxl-12">
+                <div class="panel">
+                    <div class="panel-header">
+                        <h5>All  Imported Customer Details</h5>
+                        <div id="tableSearch"></div>
+                    </div>
+                    <div class="panel-body">
+                       <table class="table table-dashed recent-order-table" id="myTable">
+                           <thead>
+                               <tr>
+                                   <th>Order ID</th>
+                                   <th>Date</th>
+                                   <th>Count</th>
+                                   <th>followup</th>
+                               </tr>
+                           </thead>
+                           <tbody>
+  <% if (normal && normal.length) { %>
+    <% normal.forEach((item, index) => { %>
+      <tr>
+        <td><%= index + 1 %></td>
+        <td><%= item.createdAt %></td>
+        <td><%= item.count %></td>
+        <td><%= item.followup %></td>
+      </tr>
+    <% }); %>
+  <% } else { %>
+    <tr>
+      <td colspan="3">No customers found</td>
+    </tr>
+  <% } %>
+</tbody>
+
+
+
+                       </table>
+                       
+                        <div class="table-bottom-control"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+<% } %>
+
+<%- include('footer.ejs') %>

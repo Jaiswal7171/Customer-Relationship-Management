@@ -1,0 +1,5 @@
+//input validation :- 
+ <input type="text" name="companyMobile" class="form-control form-control-sm" pattern="[7-9]\d{9}" title="Please enter a 10-digit number starting with 7, 8, or 9." required>
+
+ //only charcter allowed 
+ <input type="text" name="companyCategory" class="form-control form-control-sm" pattern="[A-Za-z\s]+" title="Only letters and spaces are allowed" required>

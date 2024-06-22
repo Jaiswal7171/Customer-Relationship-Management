@@ -1,0 +1,771 @@
+<%- include('header.ejs') %>
+
+<% if (section === 'adminform') { %>
+
+    <div class="main-content">
+        <div class="dashboard-breadcrumb mb-25">
+            <h2>Add Employee</h2>
+            <div class="btn-box">
+                <a href="all-employee.html" class="btn btn-sm btn-primary">All Employee</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="panel">
+                    <div class="panel-header">
+                        <h5>Basic Information</h5>
+                    </div>
+                    <div class="panel-body">
+                        <form action="/saveadmin" method="post" enctype="multipart/form-data">
+                            <div class="row g-3">
+
+                                <div class="col-xxl-4 col-lg-4 col-sm-4"> <!-- Adjusted grid layout -->
+                                    <label class="form-label">Admin Count</label>
+                                    <input type="text" name="" class="form-control form-control-sm" value="1">
+                                </div>
+
+
+                                <div class="col-xxl-4 col-lg-4 col-sm-4"> <!-- Adjusted grid layout -->
+                                    <label class="form-label">Admin Name</label>
+                                    <input type="text" name="admin_name" class="form-control form-control-sm">
+                                </div>
+                                <div class="col-xxl-4 col-lg-4 col-sm-4"> <!-- Adjusted grid layout -->
+                                    <label class="form-label">Email</label>
+                                    <input type="email" name="email" class="form-control form-control-sm">
+                                </div>
+                                <div class="col-xxl-4 col-lg-4 col-sm-4"> <!-- Adjusted grid layout -->
+                                    <label class="form-label">Password</label>
+                                    <input type="password" name="password" class="form-control form-control-sm">
+                                </div>
+
+                                <div class="col-xxl-4 col-lg-4 col-sm-4"> <!-- Adjusted grid layout -->
+                                    <label class="form-label">Designation</label>
+                                    <input type="password" name="designation" class="form-control form-control-sm">
+                                </div>
+
+                              
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-12 d-flex justify-content-end"> <!-- Moved button inside the form -->
+                                    <button type="submit" class="btn btn-sm btn-success">Save Employee</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+     
+<!-------------------------------------------------------------------- Add Employee--------------------------------------------------------------------------->
+
+            <% } else if (section === 'employeeform') { %>
+
+                <div class="main-content">
+                    <div class="dashboard-breadcrumb mb-25">
+                        <h2>Add Employee</h2>
+                        <div class="btn-box">
+                            <a href="/admin/employees" class="btn btn-sm btn-primary">All Employee</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="panel">
+                                <div class="panel-header">
+                                    <h5>Basic Information About Employee</h5>   
+                                </div>
+                                <div class="panel-body">
+                                    <form action="/admin/saveemployee" method="post" enctype="multipart/form-data">
+                                        <div class="row g-3">
+
+                                 
+            
+                                            <div class="col-xxl-4 col-lg-4 col-sm-4"> <!-- Adjusted grid layout -->
+                                                <label class="form-label">Employee Count</label>
+                                                <input type="text" name="" class="form-control form-control-sm"value="<%= countdata %>" readonly>
+                                            </div>
+
+
+
+                                            <div class="col-xxl-4 col-lg-4 col-sm-4">
+                                                <label class="form-label">Employee Name</label>
+                                                <input type="text" name="employee_name" class="form-control form-control-sm" pattern="[A-Za-z ]+" title="Only letters are allowed" required>
+
+                                            </div>
+                                        
+                                            <div class="col-xxl-4 col-lg-4 col-sm-4">
+                                                <label class="form-label">Employee Email</label>
+                                                <input type="text" name="email" class="form-control form-control-sm" required>
+                                            </div>
+                                        
+                                            <div class="col-xxl-4 col-lg-4 col-sm-4">
+                                                <label class="form-label">Company Employee Email</label>
+                                                <input type="text" name="company_email" class="form-control form-control-sm" required>
+                                            </div>
+
+
+                                      
+                                            <div class="col-xxl-4 col-lg-4 col-sm-4">
+                                                <label class="form-label">ManagerId</label> 
+                                                <select name="managerid" class="form-select form-select-sm mt-2" required>
+                                                    <option value="">Choose</option>
+                                                    <% managers.forEach(manager => { %>
+                                                        <option value="<%= manager.id %>"><%= manager.manager_name %></option>
+                                                    <% }); %>
+                                                </select>
+                                            </div>
+
+
+
+
+                                            <div class="col-xxl-4 col-lg-4 col-sm-4">
+                                                <label class="form-label">Designation</label>
+                                                <select name="managerid" class="form-select form-select-sm mt-2" required>
+                                                    <option value="">Choose</option>
+                                                    <option value="sales_executive">Sales Executive</option>
+                                                    <option value="digital_marketing_manager">Digital Marketing Manager</option>
+                                                    <option value="seo_specialist">SEO Specialist</option>
+                                                    <option value="social_media_manager">Social Media Manager</option>
+                                                    <option value="content_strategist">Content Strategist</option>
+                                                </select>
+                                            </div>
+                                            
+
+                                            <div class="col-xxl-4 col-lg-4 col-sm-4"> <!-- Adjusted grid layout -->
+                                                <label class="form-label">Phone</label>
+                                                <input type="number" name="phone"  pattern="[6-9]\d{9}" title="Please enter a 10-digit number starting with 6, 7, 8, or 9." class="form-control form-control-sm" required>
+                                            </div>
+            
+                                            <div class="col-xxl-4 col-lg-4 col-sm-4"> <!-- Adjusted grid layout -->
+                                                <label class="form-label">whatsappNo</label>
+                                                <input type="number" name="whatsapp_no" pattern="[6-9]\d{9}" title="Please enter a 10-digit number starting with 6, 7, 8, or 9." class="form-control form-control-sm" required>
+                                            </div>
+            
+                                            <div class="col-xxl-4 col-lg-4 col-sm-4">
+                                                <label class="form-label">Address</label>
+                                                <input type="text" name="address" class="form-control form-control-sm" required>
+                                            </div>
+
+                                            <div class="col-xxl-4 col-lg-4 col-sm-4">
+                                                <label class="form-label">Highest Qulification</label>
+                                                <input type="text" name="qualification" pattern="[A-Za-z ]+" title="Only letters are allowed" class="form-control form-control-sm"  required>
+                                            </div>
+                                            <div class="col-xxl-4 col-lg-4 col-sm-4">
+                                                <label class="form-label">Profile Photo</label>
+                                                <input type="file" name="profile_photo" class="form-control form-control-sm">
+                                            </div>
+
+                                            <div class="col-xxl-4 col-lg-4 col-sm-4">
+                                                <label class="form-label">AadharCard</label>
+                                                <input type="file" name="adhar_card_image" class="form-control form-control-sm" >
+                                            </div>
+
+
+                                            <div class="col-xxl-4 col-lg-4 col-sm-4">
+                                                <label class="form-label">ExperinceLetter</label>
+                                                <input type="file" name="experience_letter" class="form-control form-control-sm" >
+                                            </div>
+
+                                            <div class="col-xxl-4 col-lg-4 col-sm-4">
+                                                <label class="form-label">CreatePassword</label>
+                                                <input type="password" name="password" class="form-control form-control-sm" required>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-12 d-flex justify-content-end"> <!-- Moved button inside the form -->
+                                                <button type="submit" class="btn btn-sm btn-success">Save Employee</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+<!-------------------------------------------------------------------- Add Employee--------------------------------------------------------------------------->
+
+            <% } else if (section === 'categoryform') { %>
+
+                <div class="main-content">
+                    <div class="dashboard-breadcrumb mb-25">
+                        <h2>Add Category</h2>
+                        <div class="btn-box">
+                            <a href="/admin/categories" class="btn btn-sm btn-primary">All Category</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="panel">
+                                <div class="panel-header">
+                                    <h5>Basic Information About Category</h5>
+                                </div>
+                                <div class="panel-body">
+                                    <form action="/admin/savecategory" method="post">
+                                        <div class="row g-3">
+            
+                                            <div class="col-xxl-4 col-lg-4 col-sm-4"> <!-- Adjusted grid layout -->
+                                                <label class="form-label"> Category Count</label>
+                                                <input type="text" name="" class="form-control form-control-sm" value="1">
+                                            </div>
+                                            <div class="col-xxl-4 col-lg-4 col-sm-4"> <!-- Adjusted grid layout -->
+                                                <label class="form-label">Category Name</label>
+                                                <input type="text" name="category_name" class="form-control form-control-sm">
+                                            </div>
+                                 
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-12 d-flex justify-content"> <!-- Moved button inside the form -->
+                                                <button type="submit" class="btn btn-sm btn-success">Save Category</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+
+<!-------------------------------------------------------------------- Add service--------------------------------------------------------------------------->
+
+<% } else if (section === 'serviceform') { %>
+
+    <div class="main-content">
+        <div class="dashboard-breadcrumb mb-25">
+            <h2>Add Service</h2>
+            <div class="btn-box">
+                <a href="/admin/services" class="btn btn-sm btn-primary">All Services</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="panel">
+                    <div class="panel-header">
+                        <h5>Basic Information About Services</h5>
+                    </div>
+                    <div class="panel-body">
+                        <form action="/admin/saveservice" method="post">
+                            <div class="row g-3">
+
+                                <div class="col-xxl-4 col-lg-4 col-sm-4"> <!-- Adjusted grid layout -->
+                                    <label class="form-label"> Services Count</label>
+                                    <input type="text" name="" class="form-control form-control-sm" value="<%= totaldata %>">
+                                </div>
+
+                                <div class="col-xxl-4 col-lg-4 col-sm-4"> <!-- Adjusted grid layout -->
+                                    <label class="form-label">Category Name</label>
+                                    <select name="category_id" class="form-select form-select-sm mt-2">
+                                        <% getadata.forEach(Category => { %>
+                                            <option value="<%= Category.id %>"><%= Category.category_name %></option>
+                                        <% }); %>
+                                    </select> 
+                     
+                                </div>
+
+
+                                <div class="col-xxl-4 col-lg-4 col-sm-4"> <!-- Adjusted grid layout -->
+                                    <label class="form-label"> Services Name</label>
+                                    <input type="text" name="service_name" class="form-control form-control-sm"  required>
+                                </div>
+
+                        
+                                
+
+
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-12 d-flex justify-content"> <!-- Moved button inside the form -->
+                                    <button type="submit" class="btn btn-sm btn-success">Save Services</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+            
+<!-------------------------------------------------------------------- WorkDetails form--------------------------------------------------------------------------->
+
+<% } else if (section === 'workdeatailsform') { %>
+
+    <div class="main-content">
+        <div class="dashboard-breadcrumb mb-25">
+            <h2>work Deatils</h2>
+            <div class="btn-box">
+                <a href="all-employee.html" class="btn btn-sm btn-primary">All Manger</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="panel">
+                    <div class="panel-header">
+                        <h5>Add Work Deatils </h5>
+                    </div>
+                    <div class="panel-body">
+                        <form action="/saveworkdetails" method="post">
+                            <div class="row g-3">
+                                <div class="col-xxl-4 col-lg-4 col-sm-4">
+                                    <label class="form-label">Project Name</label>
+                                    <input type="text" name="projectName" class="form-control form-control-sm">
+                                </div>
+                                <div class="col-xxl-4 col-lg-4 col-sm-4">
+                                    <label class="form-label">Task Name</label>
+                                    <input type="text" name="taskName" class="form-control form-control-sm">
+                                </div>
+                                <div class="col-xxl-4 col-lg-4 col-sm-4">
+                                    <label class="form-label">Project Assign Date</label>
+                                    <input type="date" name="assignDate" class="form-control form-control-sm">
+                                </div>
+                                <div class="col-xxl-4 col-lg-4 col-sm-4">
+                                    <label class="form-label">Delivery Date</label>
+                                    <input type="date" name="deliveryDate" class="form-control form-control-sm">
+                                </div>
+
+                                <div class="col-xxl-4 col-lg-4 col-sm-4">
+                                    <label class="form-label">Add Your work</label>
+                                    <input type="text" name="deliveryDate" class="form-control form-control-sm">
+                                </div>
+
+
+                            </div>
+                           
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-12 d-flex justify-content-end"> <!-- Moved button inside the form -->
+                                    <button type="submit" class="btn btn-sm btn-success">Save Employee</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+
+
+
+
+            
+<!-------------------------------------------------------------------- Add Managers--------------------------------------------------------------------------->
+
+<% } else if (section === 'addmanagerform') { %>
+
+    <div class="main-content">
+        <div class="dashboard-breadcrumb mb-25">
+            <h2>Add Managers </h2>
+            <div class="btn-box">
+                <a href="/admin/managers" class="btn btn-sm btn-primary">View All Managers</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="panel">
+                    <div class="panel-header">
+                        <h5>Basic Information About Manager</h5>
+                    </div>
+                    <div class="panel-body">
+                        <form action="/admin/savemanager" method="post">
+                            <div class="row g-3">
+
+                                <div class="col-xxl-4 col-lg-4 col-sm-4"> <!-- Adjusted grid layout -->
+                                    <label class="form-label">Total Managers Count</label>
+                                    <input type="text" name="" class="form-control form-control-sm" value="<%= count; %>">
+                                </div>
+                                <div class="col-xxl-4 col-lg-4 col-sm-4">
+                                    <label for="manager_name" class="form-label">Choose Manager Name</label>
+                                    <select id="manager_name" name="manager_name" class="form-select form-select-sm mt-2" aria-label="Choose Manager Name">
+                                        <% empdata.forEach(manager => { %>
+                                            <option value="<%= manager.employee_name %>"><%= manager.employee_name %></option>
+                                        <% }); %>
+                                    </select>
+                                </div>
+                                
+                                <div class="col-xxl-4 col-lg-4 col-sm-4">
+                                    <label for="category_name" class="form-label">Choose Category</label>
+                                    <select id="category_name" name="category_name" class="form-select form-select-sm mt-2" aria-label="Choose Category">
+                                        <% senddata.forEach(category => { %>
+                                            <option value="<%= category.category_name %>"><%= category.category_name %></option>
+                                        <% }); %>
+                                    </select>
+                                </div>
+                                
+                                <div class="col-xxl-4 col-lg-4 col-sm-4"> <!-- Adjusted grid layout -->
+                                    <label class="form-label">Team Name</label>
+                                    <input type="text" name="team_name" class="form-control form-control-sm">
+                                </div>
+
+
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-12 d-flex justify-content"> <!-- Moved button inside the form -->
+                                    <button type="submit" class="btn btn-sm btn-success">Save Details</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+<!-------------------------------------------------------------------- Send Email--------------------------------------------------------------------------->
+
+<% } else if (section === 'sendEmail') { %>
+    <div class="main-content">
+        <div class="dashboard-breadcrumb mb-25">
+            <h2>Email Management</h2>
+            <div class="btn-box">
+                <a href="/employees" class="btn btn-sm btn-primary">All Email</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="panel">
+                    <div class="panel-header">
+                        <h5>Send Email</h5>
+                    </div>
+                    <div class="panel-body">
+                        <form action="/saveemployee" method="post">
+                            <div class="row g-3">
+
+
+                                <div class="col-xxl-4 col-lg-6 col-sm-12">
+                                    <label class="form-label">From</label>
+                                  
+                                    <select name="managerid" class="form-select form-select-sm mt-2">
+                                        <% admin_mail.forEach(admin => { %>
+                                            <option value="<%= admin.id %>"><%= admin.email %></option>
+                                        <% }); %>
+                                    </select>
+                                </div>
+                                
+
+
+                                <div class="col-xxl-4 col-lg-6 col-sm-12">
+                                    <label class="form-label">To</label>
+                                  
+                                    <select name="managerid" class="form-select form-select-sm mt-2">
+                                        <% getemployeemail.forEach(manager => { %>
+                                            <option value="<%= manager.id %>"><%= manager.email %></option>
+                                        <% }); %>
+                                    </select>
+                                </div>
+                                
+                                    <div class="col-xxl-6 col-lg-12 col-sm-12">
+                                        <label class="form-label">Subject</label>
+                                        <textarea name="subject" class="form-control form-control-sm" rows="4" cols="50" style="width: 100%;"></textarea>
+                                    </div>
+                                    
+                                    <div class="col-xxl-6 col-lg-12 col-sm-12">
+                                        <label class="form-label">Message</label>
+                                        <textarea name="message" class="form-control form-control-sm" rows="4" cols="50" style="width: 100%;"></textarea>
+                                    </div>
+
+                            
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-12 d-flex justify-content-end"> <!-- Moved button inside the form -->
+                                    <button type="submit" class="btn btn-sm btn-success">Send Email</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+
+<!-------------------------------------------------------------------- Add gallery--------------------------------------------------------------------------->
+
+<% } else if (section === 'addgallery') { %>
+
+    <div class="main-content">
+        <div class="dashboard-breadcrumb mb-25">
+            <h2>Add gallery</h2>
+            <div class="btn-box">
+                <a href="/categories" class="btn btn-sm btn-primary">All Category</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="panel">
+                    <div class="panel-header">
+                        <h5>Basic Information About Category</h5>
+                    </div>
+                    <div class="panel-body">
+                        <form action="/admin/savegallery" method="post" enctype="multipart/form-data">
+                            <div class="row g-3">
+
+                                
+                                <div class="col-xxl-4 col-lg-4 col-sm-4"> <!-- Adjusted grid layout -->
+                                    <label class="form-label">images</label>
+                                    <input type="file" name="image" class="form-control form-control-sm">
+                                </div>
+                     
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-12 d-flex justify-content"> <!-- Moved button inside the form -->
+                                    <button type="submit" class="btn btn-sm btn-success">Save Gallery</button>
+                                </div>
+                            </div>
+                        </form>
+
+
+
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="col-xxl-8">
+                <div class="panel">
+                    <div class="panel-header">
+                        <h5>Recent Orders</h5>
+                        <div id="tableSearch"></div>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-dashed recent-order-table" id="myTable">
+                            <thead>
+                                <tr>
+                                    <th>SrNo.</th>
+                                    <th>image</th>
+                                    <th>Heading</th>
+                                    <th>Delete</th>
+                                    <th>Timestamp</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% if (gallery && gallery.length) {
+                                    gallery.forEach((item, index) => { %>
+                                        <tr>
+                                            <td><%= index + 1 %></td>
+                                            <td><img src="/gallery/<%= item.image %>" style="border-radius: 100px;height: 40px;width: 70px;"></td>
+                                            <td>Sample Data</td>
+                                            <td>Delete/td>
+                                            <td><%= new Date(item.createdAt).toLocaleString() %></td>
+    
+                                        </tr>
+                                    <% });
+                                } else { %>
+                                    <tr>
+                                        <td colspan="15">No orders found</td>
+                                    </tr>
+                                <% } %>
+                            </tbody>
+                        </table>
+                        </table>
+                        <div class="table-bottom-control"></div>
+                    </div>
+                </div>
+            </div>
+
+<!-------------------------------------------------------------------- Add gallery--------------------------------------------------------------------------->
+
+<% } else if (section === 'EventsGallery') { %>
+
+    <div class="main-content">
+        <div class="dashboard-breadcrumb mb-25">
+            <h2>Add Eventgallery</h2>
+            <div class="btn-box">
+                <a href="/categories" class="btn btn-sm btn-primary">All Category</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="panel">
+                    <div class="panel-header">
+                        <h5>Basic Information About Category</h5>
+                    </div>
+                    <div class="panel-body">
+                        <form action="/admin/saveevents" method="post" enctype="multipart/form-data">
+                            <div class="row g-3">
+
+                                
+                                <div class="col-xxl-4 col-lg-4 col-sm-4"> <!-- Adjusted grid layout -->
+                                    <label class="form-label">images</label>
+                                    <input type="file" name="image" class="form-control form-control-sm">
+                                </div>
+                     
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-12 d-flex justify-content"> <!-- Moved button inside the form -->
+                                    <button type="submit" class="btn btn-sm btn-success">Save Category</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+       
+<!-------------------------------------------------------------------- Add gallery--------------------------------------------------------------------------->
+
+<% } else if (section === 'occasionGallery') { %>
+
+    <div class="main-content">
+        <div class="dashboard-breadcrumb mb-25">
+            <h2>Add Eventgallery</h2>
+            <div class="btn-box">
+                <a href="/categories" class="btn btn-sm btn-primary">All Category</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="panel">
+                    <div class="panel-header">
+                        <h5>Basic Information About Category</h5>
+                    </div>
+                    <div class="panel-body">
+                        <form action="/admin/saveoccasion" method="post" enctype="multipart/form-data">
+                            <div class="row g-3">
+
+                                
+                                <div class="col-xxl-4 col-lg-4 col-sm-4"> <!-- Adjusted grid layout -->
+                                    <label class="form-label">images</label>
+                                    <input type="file" name="image" class="form-control form-control-sm">
+                                </div>
+                     
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-12 d-flex justify-content"> <!-- Moved button inside the form -->
+                                    <button type="submit" class="btn btn-sm btn-success">Save Category</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+<!-------------------------------------------------------------------- Add targets--------------------------------------------------------------------------->
+
+<% } else if (section === 'addtargetform') { %>
+
+    <div class="main-content">
+        <div class="dashboard-breadcrumb mb-25">
+            <h2>Add Targets</h2>
+            <div class="btn-box">
+                <a href="/categories" class="btn btn-sm btn-primary">All Category</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="panel">
+                    <div class="panel-header">
+                        <h5>Basic Information About Category</h5>
+                    </div>
+                    <div class="panel-body">
+                        <form action="/admin/savetarget" method="post">
+                            <div class="row g-3">
+
+                                
+                            
+                            <div class="col-xxl-4 col-lg-6 col-sm-12">
+                                <label class="form-label">To</label>
+                                
+                                <select name="employeeID" class="form-select form-select-sm mt-2">
+                                    <% getemployee.forEach(data => { %>
+                                        <option value="<%= data.id %>"><%= data.employee_name %></option>
+                                    <% }); %>
+                                </select>
+                            </div>
+
+
+
+                                <div class="col-xxl-4 col-lg-6 col-sm-12">
+                                    <label class="form-label">Target</label>
+                                    <input type="text" name="target" class="form-control form-control-sm">
+                                </div>
+
+                                <div class="col-xxl-4 col-lg-6 col-sm-12">
+                                    <label class="form-label">Target StartDate</label>
+                                    <input type="date" name="targate_date" class="form-control form-control-sm">
+                                </div>
+
+
+                                <div class="col-xxl-4 col-lg-6 col-sm-12">
+                                    <label class="form-label">Target EndDate</label>
+                                    <input type="date" name="end_date" class="form-control form-control-sm">
+                                </div>
+
+
+                                <div class="col-xxl-6 col-lg-12 col-sm-12">
+                                    <label class="form-label">description</label>
+                                    <textarea name="description" class="form-control form-control-sm" rows="4" cols="50" style="width: 100%;"></textarea>
+                                </div>
+                     
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-12 d-flex justify-content"> <!-- Moved button inside the form -->
+                                    <button type="submit" class="btn btn-sm btn-success">Save</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+
+<!-------------------------------------------------------------------- Add Leavses--------------------------------------------------------------------------->
+
+<% } else if (section === 'leavesform') { %>
+
+    <div class="main-content">
+        <div class="dashboard-breadcrumb mb-25">
+            <h2>Add Leaves </h2>
+            <div class="btn-box">
+                <a href="/admin/managers" class="btn btn-sm btn-primary">View All Managers</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="panel">
+                    <div class="panel-header">
+                        <h5>Basic Information About Manager</h5>
+                    </div>
+                    <div class="panel-body">
+                        <form action="/admin/saveleaves" method="post">
+                            <div class="row g-3">
+
+                                <div class="col-xxl-4 col-lg-6 col-sm-12">
+                                    <label class="form-label">Leave Reason</label>
+                                    <textarea name="leave_reason" class="form-control form-control-sm" cols="30" rows="2"></textarea>
+                                </div>
+                                
+                                <div class="col-xxl-4 col-lg-6 col-sm-12">
+                                    <label class="form-label">Leave description</label>
+                                    <textarea name="leave_description" class="form-control form-control-sm" cols="30" rows="2"></textarea>
+                                </div>
+                                
+                                <div class="col-xxl-4 col-lg-6 col-sm-12"> <!-- Adjusted grid layout -->
+                                    <label class="form-label">Leave From</label>
+                                    <input type="date" name="leave_start_date" class="form-control form-control-sm">
+                                </div>
+
+                                
+                                <div class="col-xxl-4 col-lg-6 col-sm-12"> <!-- Adjusted grid layout -->
+                                    <label class="form-label">To</label>
+                                    <input type="date" name="leave_end_date" class="form-control form-control-sm">
+                                </div>
+
+
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-12 d-flex justify-content"> <!-- Moved button inside the form -->
+                                    <button type="submit" class="btn btn-sm btn-success">Save Details</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+ <% } %>
+
+<%- include('footer.ejs') %>

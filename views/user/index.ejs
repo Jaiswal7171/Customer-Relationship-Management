@@ -1,0 +1,139 @@
+<%- include('header.ejs') %> 
+   <!-- main content start -->
+    <div class="main-content">
+        <div class="dashboard-breadcrumb mb-25">
+            <h2>User Dashboard <%= loginuser_print.id   %></h2>
+            <div class="input-group dashboard-filter">
+                <input type="text" class="form-control" name="basic" id="dashboardFilter" readonly>
+                <label for="dashboardFilter" class="input-group-text"><i class="fa-light fa-calendar-days"></i></label>
+            </div>
+        </div>
+        <div class="row mb-25">
+            <div class="col-lg-3 col-6 col-xs-12">
+                <div class="dashboard-top-box rounded-bottom panel-bg">
+                    <div class="left">
+                        <h3><%= totalimportdataCount %></h3>
+                        <p>All Imported Customer</p>
+                        <a href="/i_lead">View Details</a>
+                    </div>
+                    <div class="right">
+                        <!-- <span class="text-primary">+16.24%</span> -->
+                        <div class="part-icon rounded">
+                            <span><i class="fa-light fa-dollar-sign"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-6 col-xs-12">
+                <div class="dashboard-top-box rounded-bottom panel-bg">
+                    <div class="left">
+                        <h3><%= leadtotalCount %></h3>
+                        <p>Your Leads Count</p>
+                        <a href="/leads">View Details</a>
+                    </div>
+                    <div class="right">
+                        <!-- <span class="text-primary">+16.24%</span> -->
+                        <div class="part-icon rounded">
+                            <span><i class="fa-light fa-bag-shopping"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-6 col-xs-12" >
+                <div class="dashboard-top-box rounded-bottom panel-bg">
+                    <div class="left">
+                        <h3></h3>
+                        <p>Your Target</p>
+                        <a href="#">See details</a>
+                    </div>
+                    <div class="right">
+                 
+                        <div class="part-icon rounded">
+                            <span><i class="fa-light fa-user"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-6 col-xs-12">
+                <div class="dashboard-top-box rounded-bottom panel-bg">
+                    <div class="left">
+                        <h3><%= clients_count %></h3>
+                        <p>Our Total Clients</p>
+                        <a href="/clients">View All Details</a>
+                    </div>
+                    <div class="right">
+                        <div class="part-icon rounded">
+                            <span><i class="fa-light fa-credit-card"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xxl-12">
+                <div class="panel">
+                    <div class="panel-header">
+                        <h5>Last 5 Customers From Our Database</h5>
+                        <div id="tableSearch"></div>
+                    </div>
+                    <div class="panel-body">
+                       <table class="table table-dashed recent-order-table" id="myTable">
+                           <thead>
+                               <tr>
+                                   <th>Order ID</th>
+                                   <th>FollowUp</th>
+                                   <th>Company Name</th>
+                                   <th>Company Mobile</th>
+                                   <th>WhatsApp Number</th>
+                                   <th>Company Category</th>
+                                   <th>Email</th>
+                                   <th>Address</th>
+                                   <th>City</th>
+                                   <th>State</th>
+                                   <th>Call Date</th>
+                                   <th>Call Time</th>
+                                   <th>Timestamp</th>
+                              
+                               </tr>
+                           </thead>
+                           <tbody>
+                               <% if (data && data.length) {
+                                data.forEach((item, index) => { %>
+                                       <tr>
+                                           <td><%= index + 1 %></td>
+                                           <td><a href="/addfollowup?id=<%= item.id %>&companyName=<%= item.companyName %>"><i class="fa fa-eye"></i></a></td>
+                                           <% if (item.d_id == 1) { %>
+                                            <td class="text-warning"><%= item.companyName %></td>
+                                        <% } else { %>
+                                            <td><%= item.companyName %></td>
+                                        <% } %>                                        
+                                           <td><%= item.whatsappNumber %></td>
+                                           <td><%= item.companyCategory %></td>
+                                           <td><%= item.email %></td>
+                                           <td><%= item.address %></td>
+                                           <td><%= item.city %></td>
+                                           <td><%= item.state %></td>
+                                      
+                                           <td><%= item.callDate %></td>
+                                           <td><%= item.callTime %></td>
+                                           <td><%= item.timestamp %></td>
+                                           <td><%= item.timestamp %></td>
+                                        
+                                       </tr>
+                                   <% });
+                               } else { %>
+                                   <tr>
+                                       <td colspan="15">No customers found</td>
+                                   </tr>
+                               <% } %>
+                           </tbody>
+                       </table>
+                       
+                        <div class="table-bottom-control"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <%- include('footer.ejs') %>

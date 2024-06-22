@@ -1,0 +1,1298 @@
+<%- include('header.ejs') %>
+
+
+
+<% if (section === 'employee') { %>
+
+    <div class="main-content">
+        <div class="dashboard-breadcrumb mb-25">
+            <h2>All Employees Deatils</h2>
+            <div class="input-group dashboard-filter">
+                <input type="text" class="form-control" name="basic" id="dashboardFilter" readonly>
+                <label for="dashboardFilter" class="input-group-text"><i class="fa-light fa-calendar-days"></i></label>
+            </div>
+        </div>
+            <div class="row">
+            <div class="col-xxl-12">
+                <div class="panel">
+                    <div class="panel-header">
+                        <h5>Employess Details</h5>
+                        <div id="tableSearch"></div>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-dashed recent-order-table" id="myTable">
+                            <thead>
+                                <tr>
+                                    <th>SrNo.</th>
+                                    <th>ProfilePhoto</th>
+                                    <th>Detail</th>
+                                    <th>WorkDetail</th>
+                                    <th>Employee Name</th>
+                                    <th>Manager Name</th>
+                                    <th>Email</th>
+                                    <th>Password</th>
+                                    <th>Designation</th>
+                                    <th>Qualification</th>
+                                    <th>Phone</th>
+                                    <th>WhatsApp No</th>
+                                    <th>Address</th>
+                                    <th>Experience Letter</th>
+                                    <th>Aadhar Card</th>
+                                    <th>Pan Card</th>
+                                    <th>Timestamp</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% if (docs && docs.length) {
+                                    docs.forEach((item, index) => { %>
+                                        <tr>
+                                            <td><%= index + 1 %></td>
+                                            <td><img src="/employeeProfile/<%= item.profile_photo %>" style="border-radius: 100px;height: 40px;"></td>
+
+                                            <td><a href="/admin/employeedetails?id=<%= item.id %>" target="_blank"><i class="fa fa-eye"></i></a></td>
+                                            <td><a href="/admin/workdetails?id=<%= item.id %>" target="_blank"><i class="fas fa-desktop"></i></a></td>
+                                            <td><%= item.employee_name %></td>
+                                            <td><%= item.Manager.manager_name %></td>
+                                            <td><%= item.email %></td>
+                                            <td><%= item.password %></td>
+                                            <td><%= item.designation %></td>
+                                            <td><%= item.qualification %></td>
+                                            <td><%= item.phone %></td>
+                                            <td><%= item.whatsapp_no %></td>
+                                            <td><%= item.address %></td>
+                                            <td><%= item.experience_letter %></td>
+                                            <td><%= item.adhar_card_image %></td>
+                                            <td><%= item.pan_card %></td>
+                                            <td><%= (item.createdAt).toLocaleString() %></td>
+
+                                        </tr>
+                                    <% });
+                                } else { %>
+                                    <tr>
+                                        <td colspan="15">No orders found</td>
+                                    </tr>
+                                <% } %>
+                            </tbody>
+                        </table>
+                        
+                        <div class="table-bottom-control"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+<!----------------------------------------------------------------------------------Category Section----------------------------------------------------------------------------------->
+
+<% } else if (section === 'category') { %>
+
+    <div class="main-content">
+        <div class="dashboard-breadcrumb mb-25">
+            <h2>Category</h2>
+            <div class="input-group dashboard-filter">
+                <input type="text" class="form-control" name="basic" id="dashboardFilter" readonly>
+                <label for="dashboardFilter" class="input-group-text"><i class="fa-light fa-calendar-days"></i></label>
+            </div>
+        </div>
+            <div class="row">
+            <div class="col-xxl-8">
+                <div class="panel">
+                    <div class="panel-header">
+                        <h5>Edit / Delete Category</h5>
+                        <div id="tableSearch"></div>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-dashed recent-order-table" id="myTable">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>CategoryName</th>
+                                    <th>Service Count</th>
+                                    <th>Edit Category</th>
+                                    <th>Delete Category</th>
+                                    <th>Timestamp</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% if (docs && docs.length) {
+                                    docs.forEach((item, index) => { %>
+                                        <tr>
+                                            <td><%= index + 1 %></td>
+                                            <td><%= item.category_name %></td>
+                                            <td>Service Count</td>
+                                            <td><i class="fa fa-eye"></i></td>
+                                            <td><a href="/admin/categories/delete?id=<%= item.id %>"><i class="fa fa-trash"></i></a></td>
+                                            <td><%= (item.createdAt).toLocaleString() %></td>
+                                        </tr>
+                                    <% });
+                                } else { %>
+                                    <tr>
+                                        <td colspan="13">No orders found</td>
+                                    </tr>
+                                <% } %>
+                            </tbody>
+                            
+                        </table>
+                        <div class="table-bottom-control"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+<!----------------------------------------------------------------------------------View Admin Section----------------------------------------------------------------------------------->
+
+ <% } else if (section === 'admin') { %>
+
+   <div class="main-content">
+    <div class="dashboard-breadcrumb mb-25">
+        <h2>eCommerce Dashboard</h2>
+        <div class="input-group dashboard-filter">
+            <input type="text" class="form-control" name="basic" id="dashboardFilter" readonly>
+            <label for="dashboardFilter" class="input-group-text"><i class="fa-light fa-calendar-days"></i></label>
+        </div>
+    </div>
+        <div class="row">
+        <div class="col-xxl-8">
+            <div class="panel">
+                <div class="panel-header">
+                    <h5>Recent Orders</h5>
+                    <div id="tableSearch"></div>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-dashed recent-order-table" id="myTable">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>AdminName</th>
+                                <th>Email</th>
+                                <th>Password</th>
+                                <th>Designation</th>
+                                <th>Timestamp</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% if (docs && docs.length) {
+                                docs.forEach((item, index) => { %>
+                                    <tr>
+                                        <td><%= index + 1 %></td>
+                                        <td><%= item.admin_name %></td>
+                                        <td><%= item.email %></td>
+                        
+                                        <td><%= item.password %></td>
+                                        <td><%= item.designation %></td>
+                                        <td><%= item.timestamp %></td>
+                                    </tr>
+                                <% });
+                            } else { %>
+                                <tr>
+                                    <td colspan="13">No orders found</td>
+                                </tr>
+                            <% } %>
+                        </tbody>
+                        
+                    </table>
+                    <div class="table-bottom-control"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!----------------------------------------------------------------------------------View Customers Section----------------------------------------------------------------------------------->
+
+
+    <% } else if (section === 'customers') { %>
+
+        <!-- main content start -->
+        <div class="main-content">
+         <div class="dashboard-breadcrumb mb-25">
+             <h2>Leads Management</h2>
+             <div class="input-group dashboard-filter">
+                 <input type="text" class="form-control" name="basic" id="dashboardFilter" readonly>
+                 <label for="dashboardFilter" class="input-group-text"><i class="fa-light fa-calendar-days"></i></label>
+             </div>
+         </div>
+             <div class="row">
+             <div class="col-xxl-12">
+                 <div class="panel">
+                     <div class="panel-header">
+                         <h5>Leads Details</h5>
+                         <div id="tableSearch"></div>
+                     </div>
+                     <div class="panel-body">
+                        <table class="table table-dashed recent-order-table" id="myTable">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Company Name</th>
+                                    <th>Employee Name</th>
+                                    <th>Company Mobile</th>
+                                    <th>WhatsApp Number</th>
+                                    <th>Company Category</th>
+                                    <th>Email</th>
+                                    <th>Address</th>
+                                    <th>City</th>
+                                    <th>State</th>
+                                    <th>Employee Name</th>
+                                    <th>Call Date</th>
+                                    <th>Call Time</th>
+                                    <th>Timestamp</th>
+                               
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% if (docs && docs.length) {
+                                    docs.forEach((item, index) => { %>
+                                        <tr>
+                                            <td><%= index + 1 %></td>
+
+                                            <% if (item.d_id == 1) { %> <!-- Checking item.d_id for conditional formatting -->
+                                                <td class="text-warning"><%= item.companyName %></td>
+                                            <% } else { %>
+                                                <td><%= item.companyName %></td>
+                                            <% } %>   
+                                            <td><%= item.Employee.employee_name %></td>
+                                            <td><%= item.companyMobile %></td>
+                                            <td><%= item.whatsappNumber %></td>
+                                            <td><%= item.companyCategory %></td>
+                                            <td><%= item.email %></td>
+                                            <td><%= item.address %></td>
+                                            <td><%= item.city %></td>
+                                            <td><%= item.state %></td>
+                                            <td><%= item.Employee.employee_name %></td> <!-- Display employee name -->
+                                            <td><%= item.callDate %></td>
+                                            <td><%= item.callTime %></td>
+                                            <td><%= item.timestamp %></td>
+                                         
+                                        </tr>
+                                    <% });
+                                } else { %>
+                                    <tr>
+                                        <td colspan="15">No customers found</td>
+                                    </tr>
+                                <% } %>
+                            </tbody>
+                        </table>
+                        
+                         <div class="table-bottom-control"></div>
+                     </div>
+                 </div>
+             </div>
+         </div>
+
+
+<!------------------------------------------------------------------------------------------- Edit Employee Profile----------------------------------------------------------------------------------------------------------->
+        
+
+<% } else if (section === 'employeeprofile') { %>
+
+   <!-- main content start -->
+   <div class="main-content">
+    <div class="dashboard-breadcrumb mb-25">
+        <h2>Edit Profile</h2>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="panel">
+                <div class="panel-header">
+                    <nav>
+                        <div class="btn-box d-flex flex-wrap gap-1" id="nav-tab" role="tablist">
+                            <button class="btn btn-sm btn-outline-primary active" id="nav-edit-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-edit-profile" type="button" role="tab" aria-controls="nav-edit-profile" aria-selected="true">Edit Profile</button>
+                            <button class="btn btn-sm btn-outline-primary" id="nav-change-password-tab" data-bs-toggle="tab" data-bs-target="#nav-change-password" type="button" role="tab" aria-controls="nav-change-password" aria-selected="false">Change Password</button>
+                        </div>
+                    </nav>
+                </div>
+                <div class="panel-body">
+                    <div class="tab-content profile-edit-tab" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="nav-edit-profile" role="tabpanel" aria-labelledby="nav-edit-profile-tab" tabindex="0">
+                            <form>
+                                <div class="profile-edit-tab-title">
+                                    <h6>Employee Information</h6>
+                                </div>
+                                <div class="public-information mb-25">
+                                    <div class="row g-4">
+                                        <div class="col-md-3">
+                                            <div class="admin-profile">
+                                                <div class="image-wrap">
+                                                    <div class="part-img rounded-circle overflow-hidden">
+                                                        <img src="/employeeProfile/<%= getData.profile_photo %>" alt="admsin">
+                                                    </div>
+                                                    <button class="image-change"><i class="fa-light fa-camera"></i></button>
+                                                </div>
+                                                <span class="admin-name"><%= getData.employee_name%></span>
+                                     
+                                            </div>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <div class="row g-3">
+                                                <div class="col-sm-6">
+                                                    <div class="input-group">
+                                                        <span class="input-group-text"><i class="fa-light fa-user"></i></span>
+                                                        <input type="text" class="form-control" placeholder="Full Name" value="<%= getData.employee_name%>"  title="Name">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="input-group">
+                                                        <span class="input-group-text"><i class="fa-light fa-at"></i></span>
+                                                        <input type="text" class="form-control" placeholder="Desgination" value="<%= getData.designation%>" title="Desgination">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-6">
+                                                    <div class="input-group">
+                                                        <span class="input-group-text"><i class="fas fa-envelope email-icon"></i></span>
+                                                        <input type="text" class="form-control" placeholder="Your Email" value="<%= getData.email%>" title="PersonalEmail">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="input-group">
+                                                        <span class="input-group-text"><i class="fas fa-male"></i></span>
+                                                        <input type="text" class="form-control" placeholder="Username" value="<%= getData.gender%>" title="Gender">
+                                                    </div>
+                                                </div>
+
+
+
+                                                <div class="col-sm-6">
+                                                    <div class="input-group">
+                                                        <span class="input-group-text"><i class="fas fa-phone-alt"></i></span>
+                                                        <input type="text" class="form-control" placeholder="Phone Number" value="<%= getData.phone %>" title="PhoneNo">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="input-group">
+                                                        <span class="input-group-text"><i class="fab fa-whatsapp"></i></span>
+                                                        <input type="text" class="form-control" placeholder="WhatsApp Number" value="<%= getData.whatsapp_no %>" title="WhatsAppNo">
+                                                    </div>
+                                                </div>
+
+                                             
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="profile-edit-tab-title">
+                                    <h6>Other  Informations</h6>
+                                </div>
+                                <div class="private-information mb-25">
+                                    <div class="row g-3">
+                                        <div class="col-md-4 col-sm-6">
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
+                                                <input type="text" class="form-control" placeholder="Unique ID" value="<%= getData.Manager.manager_name %>" title="Manager Name">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-sm-6">
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class="fas fa-chart-line"></i></span>
+                                                <input type="text" class="form-control" name="experince" value="<%= getData.experience %>" title="Experince">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-sm-6">
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class="fas fa-graduation-cap"></i></span>
+                                                <input type="text" class="form-control" placeholder="Unique ID" value="<%= getData.qualification %>" title="Qualification">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-sm-6">
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class="fa-solid fa-address-book"></i></span>
+                                                <input type="text" class="form-control" placeholder="Email" value="<%= getData.address %>" title="Address">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4 col-sm-6">
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class='fas fa-city'></i></span>
+                                                <input type="text" class="form-control" placeholder="City" value="<%= getData.city%>" title="City">
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-4 col-sm-6">
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class='far fa-building'></i></span>
+                                                <input type="url" class="form-control" placeholder="Youtube" value="<%= getData.state%>" title="State">
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="col-md-4 col-sm-6">
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class="fas fa-suitcase"></i></span>
+                                                <input type="tel" class="form-control" placeholder="" value="<%= getData.portfolio_link %>" title="Portfolio Link">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-sm-6">
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class='fas fa-key'></i></span>
+                                                <input type="password" class="form-control" placeholder="Password" value="***" title="Password">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4 col-sm-6">
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class="fa-light fa-user"></i></span>
+                                                <input type="number" class="form-control" placeholder="Password"  value="<%= getData.id %>" title="EmployeeID">
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                            </form>
+                        </div>
+                        <div class="tab-pane fade" id="nav-change-password" role="tabpanel" aria-labelledby="nav-change-password-tab" tabindex="0">
+                            <form>
+                                <div class="profile-edit-tab-title">
+                                    <h6>Change Password</h6>
+                                </div>
+                                <div class="social-information">
+                                    <div class="row g-3">
+                                        <div class="col-12">
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class="fa-light fa-lock"></i></span>
+                                                <input type="password" class="form-control" placeholder="Current Password">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class="fa-light fa-lock"></i></span>
+                                                <input type="url" class="form-control" placeholder="New Password">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class="fa-light fa-lock"></i></span>
+                                                <input type="url" class="form-control" placeholder="Confirm Password">
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+<!------------------------------------------------------------------------------------------- Work Deatails----------------------------------------------------------------------------------------------------------->
+        
+
+<% } else if (section === 'workdetails') { %>
+
+
+    <!-- main sidebar end -->
+
+    <!-- main content start -->
+    <div class="main-content">
+        <div class="dashboard-breadcrumb mb-25">
+            <h2>Work Deatils</h2>
+            <div class="input-group dashboard-filter">
+                <input type="text" class="form-control" name="basic" id="dashboardFilter" readonly>
+                <label for="dashboardFilter" class="input-group-text"><i class="fa-light fa-calendar-days"></i></label>
+            </div>
+        </div>
+        <!-- <div class="row mb-25">
+            <div class="col-lg-3 col-6 col-xs-12">
+                <div class="dashboard-top-box dashboard-top-box-2 rounded border-0 panel-bg">
+                    <div class="left">
+                        <p class="d-flex justify-content-between mb-2">Total Employees</p>
+                        <h3 class="fw-normal">134,152</h3>
+                        <p class="text-muted"><small>124 for last month</small></p>
+                    </div>
+                    <div class="right">
+                        <div class="part-icon text-light rounded">
+                            <span><i class="fa-light fa-user-plus"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-6 col-xs-12">
+                <div class="dashboard-top-box dashboard-top-box-2 rounded border-0 panel-bg">
+                    <div class="left">
+                        <p class="d-flex justify-content-between mb-2">Campaign Sent</p>
+                        <h3 class="fw-normal">12,412</h3>
+                        <p class="text-muted"><small>4 for last month</small></p>
+                    </div>
+                    <div class="right">
+                        <div class="part-icon text-light rounded">
+                            <span><i class="fa-light fa-bullhorn"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-6 col-xs-12">
+                <div class="dashboard-top-box dashboard-top-box-2 rounded border-0 panel-bg">
+                    <div class="left">
+                        <p class="d-flex justify-content-between mb-2">Annual Profit</p>
+                        <h3 class="fw-normal">$134,152</h3>
+                        <p class="text-muted"><small>124 for last month</small></p>
+                    </div>
+                    <div class="right">
+                        <div class="part-icon text-light rounded">
+                            <span><i class="fa-light fa-dollar-sign"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-6 col-xs-12">
+                <div class="dashboard-top-box dashboard-top-box-2 rounded border-0 panel-bg">
+                    <div class="left">
+                        <p class="d-flex justify-content-between mb-2">Lead Conversation</p>
+                        <h3 class="fw-normal">52%</h3>
+                        <p class="text-muted"><small>124 for last month</small></p>
+                    </div>
+                    <div class="right">
+                        <div class="part-icon text-light rounded">
+                            <span><i class="fa-light fa-magnifying-glass-chart"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+        <div class="row">
+          
+            <div class="col-xxl-12 col-md-12">
+                <div class="panel">
+                    <div class="panel-header">              
+ 
+                        <h5> <i><%= data[0].Employee.employee_name %>  Work Details </i></h5>
+
+                        <div class="btn-box">
+                            <a href="" class="btn btn-sm btn-primary">Profile</a>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <ul class="hr-recent-activity">
+                            <% data.forEach(detail => { %>
+                                <li>
+                                    <div class="left">
+                                        <span class="activity-name"><%= detail.ProjectName %> &nbsp; || &nbsp;  <span class="text-secondary"><i><%= detail.TaskName %> || &nbsp; 
+
+                                        </span>    <small>[ <span class="text-warning">Assign Date</span> - <i><%= detail.ProjectAssignDate %></i>  |  <span class="text-warning">End Date - </span><i><%= detail.ProjectAssignDate %></i>]</small></span>
+                                        <span class="activity-short"><%= detail.description %> </span>
+                                    </div>
+                                    <div class="right">
+                                        <span class="activity-time"><%= new Date(detail.createdAt).toLocaleString() %></span>
+                                    </div>
+                                 
+                                </li>
+                                
+                            <% }) %>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+           
+          
+        </div>
+<!----------------------------------------------------------------------------------View Service Section----------------------------------------------------------------------------------->
+
+    
+<% } else if (section === 'Service') { %>
+   <!-- main content start -->
+   <div class="main-content">
+    <div class="dashboard-breadcrumb mb-25">
+        <h2>All Services</h2>
+        <div class="input-group dashboard-filter">
+            <input type="text" class="form-control" name="basic" id="dashboardFilter" readonly>
+            <label for="dashboardFilter" class="input-group-text"><i class="fa-light fa-calendar-days"></i></label>
+        </div>
+    </div>
+        <div class="row">
+        <div class="col-xxl-12">
+            <div class="panel">
+                <div class="panel-header">
+                    <h5>Service Deatils Based On Category</h5>
+                    <div id="tableSearch"></div>
+                </div>
+                <div class="panel-body">
+                   <table class="table table-dashed recent-order-table" id="myTable">
+                       <thead>
+                           <tr>
+                               <th>Service ID</th>
+                               <th>Service Name</th>
+                               <th>Category Name</th>
+                               <th>Edit</th>
+                               <th>Timestamp</th>
+                          
+                           </tr>
+                       </thead>
+                       <tbody>
+                        <% serviceData.forEach((item, index) => { %>
+                            <tr>
+                                <td><%= index + 1 %></td>
+                                <td><%= item.service_name %></td>
+                                <td><%= item.Category ? item.Category.category_name : 'N/A' %></td>
+                                <td><i class="fa fa-edit"></i></td>
+                                <td><%= item.timestamp %></td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                    
+                    
+                   </table>
+                   
+                    <div class="table-bottom-control"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<!----------------------------------------------------------------------------------View callcountdisplay Section----------------------------------------------------------------------------------->
+
+    <% } else if (section === 'callcountdisplay') { %>
+
+
+    <div class="main-content">
+        <div class="dashboard-breadcrumb mb-25">
+            <h2>eCommerce Dashboard</h2>
+            <div class="input-group dashboard-filter">
+                <input type="text" class="form-control" name="basic" id="dashboardFilter" readonly>
+                <label for="dashboardFilter" class="input-group-text"><i class="fa-light fa-calendar-days"></i></label>
+            </div>
+        </div>
+        <div class="row mb-25">
+
+            <% data.forEach(config => { %>
+                <div class="col-lg-2">
+                    <div class="dashboard-top-box rounded-bottom panel-bg">
+                        <div class="left">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdJv4siZElzD9aDUsVEAf-wTKhqnH_iJkX7Q&s" style="border-radius: 50%; max-height: 80px; max-width: 80px; margin-left: 10px;" alt="Image Description">
+                            <a href="/getcalldetails?id=<%= config.id %>?<%= config.employee_name %>" aria-label="Get call details for employee">Click here for details</a>
+                        </div>
+                    </div>
+                </div>
+            <% }); %>
+            
+        </div>
+        <% } else if (section === 'gaurav') { %>
+      
+        <div class="main-content">
+            <div class="dashboard-breadcrumb mb-25">
+                <h2>All Employees Deatils</h2>
+                <div class="input-group dashboard-filter">
+                    <input type="text" class="form-control" name="basic" id="dashboardFilter" readonly>
+                    <label for="dashboardFilter" class="input-group-text"><i class="fa-light fa-calendar-days"></i></label>
+                </div>
+            </div>
+                <div class="row">
+                <div class="col-xxl-12">
+                    <div class="panel">
+                        <div class="panel-header">
+                            <p>Employee Name : <%= employeeDetail.employee_name %></p>
+
+                            <div id="tableSearch"></div>
+                        </div>
+                        <div class="panel-body">
+                            
+                            <table class="table table-dashed recent-order-table" id="myTable">
+                                <thead>
+                                    <tr>
+                                        <th>Order ID</th>
+                                        <th>Company Name</th>
+                                        <th>Company Mobile</th>
+                                        <th>WhatsApp Number</th>
+                                        <th>Company Category</th>
+                                        <th>Email</th>
+                                        <th>Address</th>
+                                        <th>City</th>
+                                        <th>State</th>
+                                        <th>Call Date</th>
+                                        <th>Call Time</th>
+                                        <th>Timestamp</th>
+                                   
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% if (data && data.length) {
+                                        data.forEach((item, index) => { %>
+                                            <tr>
+                                                <td><%= index + 1 %></td>
+                                                <td><%= item.companyName %></td>
+                                                <td><%= item.companyMobile %></td>
+                                                <td><%= item.whatsappNumber %></td>
+                                                <td><%= item.companyCategory %></td>
+                                                <td><%= item.email %></td>
+                                                <td><%= item.address %></td>
+                                                <td><%= item.city %></td>
+                                                <td><%= item.state %></td>
+                                                <td><%= item.callDate %></td>
+                                                <td><%= item.callTime %></td>
+                                                <td><%= item.timestamp %></td>
+                                             
+                                            </tr>
+                                        <% });
+                                    } else { %>
+                                        <tr>
+                                            <td colspan="15">No customers found</td>
+                                        </tr>
+                                    <% } %>
+                                </tbody>
+                            </table>
+                            
+                            <div class="table-bottom-control"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+<!----------------------------------------------------------------------------------View All Managers Section----------------------------------------------------------------------------------->
+
+            <% } else if (section === 'all_managers') { %>
+                <!-- main content start -->
+                <div class="main-content">
+                 <div class="dashboard-breadcrumb mb-25">
+                     <h2>All Managers</h2>
+                     <div class="input-group dashboard-filter">
+                         <input type="text" class="form-control" name="basic" id="dashboardFilter" readonly>
+                         <label for="dashboardFilter" class="input-group-text"><i class="fa-light fa-calendar-days"></i></label>
+                     </div>
+                 </div>
+                     <div class="row">
+                     <div class="col-xxl-12">
+                         <div class="panel">
+                             <div class="panel-header">
+                                 <h5>Our Managers Deatils /  Team Name</h5>
+                                 <div id="tableSearch"></div>
+                             </div>
+                             <div class="panel-body">
+                                <table class="table table-dashed recent-order-table" id="myTable">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">SrNo.</th>
+                                            <th scope="col">ManagerName</th>
+                                            <th scope="col">Category Name</th>
+                                            <th scope="col">Team Name</th>
+                                            <th scope="col">Edit</th>
+                                            <th scope="col">Timestamp</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% managerdata.forEach((item, index) => { %>
+                                            <tr>
+                                                <td><%= index + 1 %></td>
+                                                <td><%= item.manager_name %></td>
+                                                <td><%= item.category_name %></td>
+                                                <td><%= item.team_name %></td>
+                                                <td> <a href=""><i class="fa fa-edit"></i></a></td>
+                                                <td><%= (new Date(item.createdAt)).toLocaleString() %></td>
+                                            </tr>
+                                        <% }) %>
+                                    </tbody>
+                                </table>
+                                 <div class="table-bottom-control"></div>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+
+
+<!----------------------------------------------------------------------------------View work_profile Section----------------------------------------------------------------------------------->
+
+
+
+                 <% } else if (section === 'work_profile') { %>
+                
+                    <div class="main-content">
+                        <div class="dashboard-breadcrumb mb-25">
+                            <h2>Work Deatails</h2>
+                            <div class="input-group dashboard-filter">
+                                <input type="text" class="form-control" name="basic" id="dashboardFilter" readonly>
+                                <label for="dashboardFilter" class="input-group-text"><i class="fa-light fa-calendar-days"></i></label>
+                            </div>
+                        </div>
+
+
+
+                        <div class="row mb-25">
+
+
+                            <% getemployeedata.forEach((item, index) => { %>
+                                <div class="col-lg-3 col-6 col-xs-12">
+                                    <div class="dashboard-top-box dashboard-top-box-2 rounded border-0 panel-bg">
+                                        <div class="left">
+                                            <p class="d-flex justify-content-between mb-2"><%= item.designation %></p>
+                                            <h3 class="fw-normal"><%= item.employee_name %></h3>
+                                            <p class="text-muted"><small><a href="/admin/workdetails?id=<%= item.id %>"><i class="fa fa-eye"></a></i></small></p>
+                                        </div>
+                                        <div class="right">
+                                            <div class="part-icon text-light rounded">
+                                                <span><img src="/employeeProfile/<%= item.profile_photo %>" style="height:50px;"></span>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            <% }); %>
+                            
+                  
+                      
+
+                     
+
+                        </div>
+<!----------------------------------------------------------------------------------View LEave approval  Section----------------------------------------------------------------------------------->
+
+                     
+<% } else if (section === 'Leave_approval') { %>
+                          
+    <div class="main-content">
+        <div class="dashboard-breadcrumb mb-25">
+            <h2>Leave Approval</h2>
+            <div class="input-group dashboard-filter">
+                <input type="text" class="form-control" name="basic" id="dashboardFilter" readonly>
+                <label for="dashboardFilter" class="input-group-text"><i class="fa-light fa-calendar-days"></i></label>
+            </div>
+        </div>
+            <div class="row">
+            <div class="col-xxl-12">
+                <div class="panel">
+                    <div class="panel-header">
+                        <h5>Leave Deatils</h5>
+                        <div id="tableSearch"></div>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-dashed recent-order-table" id="myTable">
+                            <thead>
+                                <tr>
+                                    <th>SrNo.</th>
+                                    <th>leave_reason</th>
+                                    <th>Leaves Start Date</th>
+                                    <th>Leave End Date</th>
+                                    <th>Total Leaves Count</th>
+                                    <th>UpdateStatus</th>
+                                    <th>Timestamp</th>
+                          
+                                   
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% if (leave_approval && leave_approval.length) {
+                                    leave_approval.forEach((item, index) => { %>
+                                        <tr>
+                                            <td><%= index + 1 %></td>
+                                            <td><%= item.leave_reason %></td>
+                                            <td><%= (item.leave_start_date).toLocaleString()  %></td>
+                                            <td><%= (item.leave_end_date).toLocaleString()%></td>
+                                            <td><%= item.total_leaves %></td>
+                                            <td>Update</td>
+                                            <td><%= (item.createdAt).toLocaleString() %></td>
+                                        </tr>
+                                    <% });
+                                } else { %>
+                                    <tr>
+                                        <td colspan="15">No orders found</td>
+                                    </tr>
+                                <% } %>
+                            </tbody>
+                        </table>
+                        
+                        <div class="table-bottom-control"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<!----------------------------------------------------------------------------------View employee Profile For the Leave Section----------------------------------------------------------------------------------->
+
+
+
+        <% } else if (section === 'employee_leaves') { %>
+                          
+            <div class="main-content">
+                <div class="dashboard-breadcrumb mb-25">
+                    <h2>Employees Leave Deatails</h2>
+                    <div class="input-group dashboard-filter">
+                        <input type="text" class="form-control" name="basic" id="dashboardFilter" readonly>
+                        <label for="dashboardFilter" class="input-group-text"><i class="fa-light fa-calendar-days"></i></label>
+                    </div>
+                </div>
+                    <div class="row">
+                    <div class="col-xxl-12">
+                        <div class="panel">
+                            <div class="panel-header">
+                                <h5>Leave Deatil</h5>
+                            
+                                <div id="tableSearch"></div>
+                            </div>
+                            <div class="panel-body">
+                                <table class="table table-dashed recent-order-table" id="myTable">
+                                    <thead>
+                                        <tr>
+                                            <th>SrNo.</th>
+                                            <th>Leave Details</th>
+                                            <th>Employee Name</th>
+                                            <th>Email</th>
+                                            <th>Allowted Leaves</th>
+                                            <th>Remaning Leaves</th>
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% if (leave && leave.length) {
+                                            leave.forEach((item, index) => { %>
+                                                <tr>
+                                                    <td><%= index + 1 %></td>
+                                                    <td><a href="/leavesdetails?id=<%= item.id %>&name=<%= item.employee_name %>"><i class='fas fa-bed' style='font-size:14px'></i></a></td>
+                                                    <td><%= item.employee_name %></td>
+                                                    <td><%= item.email %></td>
+                                                    <td>45</td>
+                                                    <td><%= item.managerid  %></td>
+                                               
+                                                   
+                                                </tr>
+                                            <% });
+                                        } else { %>
+                                            <tr>
+                                                <td colspan="15">No orders found</td>
+                                            </tr>
+                                        <% } %>
+                                    </tbody>
+                                </table>
+                                
+                                <div class="table-bottom-control"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+<!------------------------------------------------------------------------------------------- leaves_details Base On employee Profile----------------------------------------------------------------------------------------------------------->
+        
+
+<% } else if (section === 'leaves_details') { %>
+
+
+    <!-- main sidebar end -->
+
+    <!-- main content start -->
+    <div class="main-content">
+        <div class="dashboard-breadcrumb mb-25">    
+            <h2>Leave Details </h2>
+            <div class="input-group dashboard-filter">
+                <input type="text" class="form-control" name="basic" id="dashboardFilter" readonly>
+                <label for="dashboardFilter" class="input-group-text"><i class="fa-light fa-calendar-days"></i></label>
+            </div>
+        </div>
+  
+        <div class="row">
+          
+            <div class="col-xxl-4 col-md-12">
+                <div class="panel">
+                    <div class="panel-header">              
+ 
+                        <h5><%= emp_name %> , Leave Details</h5>
+                        <div class="btn-box">
+                            <a href="" class="btn btn-sm btn-primary">Profile</a>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <ul class="hr-recent-activity">
+                            <% leave.forEach(detail => { %>
+                                <li>
+                                    <div class="left">
+                                        <span class="activity-name"><%= detail.leave_reason %></span>
+                                        <span class="activity-name">
+                                            <span class="text-primary"><i><%= detail.leave_start_date %></i></span>
+                                            <span>To</span>
+                                            <span class="text-primary"><i><%= detail.leave_end_date %></i></span>
+                                        </span>
+                                        <span class="activity-short"><%= detail.leave_description %></span>
+                                    </div>
+                                    <div class="right">
+                                        <span class="badge bg-secondary"><%= detail.total_leaves %></span>
+                                    </div>
+                      
+                                </li>
+                                
+                            <% }) %>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+           
+          
+        </div>
+
+
+
+        
+<!------------------------------------------------------------------------------------------- targets----------------------------------------------------------------------------------------------------------->
+        
+
+<% } else if (section === 'target') { %>
+
+    <!-- main content start -->
+    <div class="main-content">
+        <div class="dashboard-breadcrumb mb-25">
+            <h2>Target Details</h2>
+            <div class="input-group dashboard-filter">
+                <input type="text" class="form-control" name="basic" id="dashboardFilter" readonly>
+                <label for="dashboardFilter" class="input-group-text"><i class="fa-light fa-calendar-days"></i></label>
+            </div>
+        </div>
+        <div class="row">
+          
+            <div class="col-xxl-6 col-md-12">
+                <div class="panel">
+                    <div class="panel-header">
+                        <h5>Detail Information About Employee Targets</h5>
+                        <div class="btn-box d-sm-block d-none">
+                            <button class="btn btn-sm btn-outline-primary">Week</button>
+                            <button class="btn btn-sm btn-outline-primary">Month</button>
+                            <button class="btn btn-sm btn-outline-primary">Year</button>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-borderless visitor-table">
+                            <thead>
+                                <tr>
+                                    <th>Sources</th>
+                                    <th>Visitor</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% employees.forEach(item => { %>
+                                <tr>
+                                    <td><%= item.employee_name %> </td>
+                                    <td>
+                                        <a href="/admin/targetdetails?id=<%= encodeURIComponent(item.id) %>"><i class="fa fa-eye"></i></a>
+                                    </td>
+                                    
+                                </tr>
+                                <% }) %>
+                            </tbody>
+                            
+                        </table>
+                    </div>
+                </div>
+            </div>
+          
+        </div>
+
+
+<!------------------------------------------------------------------------------------------- targets----------------------------------------------------------------------------------------------------------->
+
+<% } else if (section === 'target_details') { %>
+    <style>
+        .description-cell {
+            max-width: 100px; /* Adjust the width to your preference */
+            overflow-x: auto;
+            white-space: nowrap;
+            scrollbar-width: thin; /* Width of the scrollbar */
+            scrollbar-color: #888888 #f0f0f0; /* Color of the scrollbar */
+        }
+    
+    
+    </style>
+<div class="main-content">
+    <div class="dashboard-breadcrumb mb-25">
+        <h2>All Target Deatils</h2>
+        <div class="input-group dashboard-filter">
+            <input type="text" class="form-control" name="basic" id="dashboardFilter" readonly>
+            <label for="dashboardFilter" class="input-group-text"><i class="fa-light fa-calendar-days"></i></label>
+        </div>
+    </div>
+        <div class="row">
+        <div class="col-xxl-12">
+            <div class="panel">
+                <div class="panel-header">
+                    <h5>Target Details</h5>
+                    <div id="tableSearch"></div>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-dashed recent-order-table" id="myTable">
+                        <thead>
+                            <tr>
+                                <th>SrNo.</th>
+                                <th>Target</th>
+                                <th>StartDate</th>
+                                <th>EndDate</th>
+                                <th>Status</th>
+                                <th>Description</th>
+                                <th>Timestamp</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% if (gettargetdetails && gettargetdetails.length) {
+                                gettargetdetails.forEach((item, index) => { %>
+                                    <tr>
+                                        <td><%= index + 1 %></td>
+                                        <td><%= item.target %></td>
+                                        <td><%= item.targate_date %></td>
+                                        <td><%= item.end_date %></td>
+                                        <td><span class="badge bg-danger"><%= item.status %></span></td>
+                                        <td class="description-cell"><%= item.description %></td>
+                                        <td><%= new Date(item.createdAt).toLocaleString() %></td>
+
+                                    </tr>
+                                <% });
+                            } else { %>
+                                <tr>
+                                    <td colspan="15">No orders found</td>
+                                </tr>
+                            <% } %>
+                        </tbody>
+                    </table>
+                    
+                    <div class="table-bottom-control"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    
+<!------------------------------------------------------------------------------------------- employee leaves----------------------------------------------------------------------------------------------------------->
+
+<% } else if (section === 'employess_leaves') { %>
+<div class="main-content">
+    <div class="dashboard-breadcrumb mb-25">
+        <h2>Leave Details   </h2>
+        <div class="input-group dashboard-filter">
+            <input type="text" class="form-control" name="basic" id="dashboardFilter" readonly>
+            <label for="dashboardFilter" class="input-group-text"><i class="fa-light fa-calendar-days"></i></label>
+        </div>
+    </div>
+        <div class="row">
+        <div class="col-xxl-12">
+            <div class="panel">
+                <div class="panel-header">
+                    <h5>Target Details</h5>
+                    <div id="tableSearch"></div>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-dashed recent-order-table" id="myTable">
+                        <thead>
+                            <tr>
+                                <th>SrNo.</th>
+                                <th>LeaveDeatails</th>
+                                    <th>Employee Name</th>
+                                    <th>Manager Name</th>
+                                    <th>Email</th>
+                                    <th>Designation</th>
+                                    <th>Phone</th>
+                                    <th>WhatsApp No</th>
+                                    <th>Timestamp</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% if (getemployee && getemployee.length) {
+                                getemployee.forEach((item, index) => { %>
+                                    <tr>
+                                        <td><%= index + 1 %></td>
+                                        <td><a href="/admin/leavedetails?id=<%= item.id %>&employeename=<%= encodeURIComponent(item.employee_name) %>" target="_blank"><i class="fa fa-eye"></i></a></td>
+                                        <td><%= item.employee_name %></td>
+                                        <td><%= item.email %></td>
+                                        <td><%= item.email %></td>
+                                        <td><%= item.password %></td>
+                                        <td><%= item.designation %></td>
+                                        <td><%= item.qualification %></td>
+                                        <td><%= (item.createdAt).toLocaleString() %></td>
+
+                                    </tr>
+                                <% });
+                            } else { %>
+                                <tr>
+                                    <td colspan="15">No orders found</td>
+                                </tr>
+                            <% } %>
+                        </tbody>
+                    </table>
+                    
+                    <div class="table-bottom-control"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+<!-------------------------------------------------------------------------------------------detail employee leaves----------------------------------------------------------------------------------------------------------->
+
+<% } else if (section === 'leave_details') { %>
+    <div class="main-content">
+        <div class="dashboard-breadcrumb mb-25">
+            <h2>Leave Details   </h2>
+            <div class="input-group dashboard-filter">
+                <input type="text" class="form-control" name="basic" id="dashboardFilter" readonly>
+                <label for="dashboardFilter" class="input-group-text"><i class="fa-light fa-calendar-days"></i></label>
+            </div>
+        </div>
+            <div class="row">
+            <div class="col-xxl-12">
+                <div class="panel">
+                    <div class="panel-header">
+                        <h5>Leave Structure Of <i><%= employee_Name %></i></h5>
+                        <div id="tableSearch"></div>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-dashed recent-order-table" id="myTable">
+                            <thead>
+                                <tr>
+                                    <th>SrNo.</th>
+                                    <th>LeaveReason</th>
+                                    <th>LeaveDescription</th>
+                                    <th>LeaveFrom</th>
+                                    <th>LeaveTo</th>
+                                    <th>TotalLeaves</th>
+                                    <th>Timestamp</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% if (getleavesdetails && getleavesdetails.length) {
+                                    var totalleaves = 0; // Initialize totalleaves variable outside forEach loop
+                                    getleavesdetails.forEach((item, index) => { %>
+                                        <tr>
+                                            <td><%= index + 1 %></td>
+                                            <td><%= item.leave_reason %></td>
+                                            <td><%= item.leave_description %></td>
+                                            <td><%= item.leave_start_date %></td>
+                                            <td><%= item.leave_end_date %></td>
+                                            <td><%= item.total_leaves %></td>
+                                            <td><%= (item.createdAt).toLocaleString() %></td>
+                                        </tr>
+                                        <% totalleaves += item.total_leaves; // Accumulate total leaves %>
+                                    <% });
+                                } else { %>
+                                    <tr>
+                                        <td colspan="7">No leaves found</td>
+                                    </tr>
+                                <% } %>
+                            </tbody>
+                        </table>
+                    
+                        <div class="table-bottom-control">
+                            <p>Total Leaves: <%= totalleaves %></p>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <!-- const date1 = moment('2022-01-01');
+        const date2 = moment('2022-01-10');
+        
+        // Calculate the difference in days
+        const diffInDays = date2.diff(date1, 'days');
+        
+        console.log(diffInDays);  // Output: 9
+         -->
+
+
+ <% } %>
+
+<%- include('footer.ejs') %>
