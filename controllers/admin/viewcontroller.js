@@ -245,23 +245,10 @@ static employeeprofile = async (req, res) => {
     }
 
 
-// -------------------------------------------------- Send Email ------------------------------------------------------------------------------------------------------------
-
-
-static sendmail = async (req, res) => {
-    try {
-        const admin_mail = await admin.findAll();
-        const getemployeemail = await Employee.findAll();
-        res.render('admin/add.ejs', {  section: "sendEmail" , getemployeemail , admin_mail}); // Render the view
-    } catch (error) {
-        console.error('Error fetching services:', error);
-        res.status(500).json({ error: 'Error fetching services' }); // Send JSON response in case of error
-    }
-}
 
 
 
-//
+
 // --------------------------------------------------------------------------Leave Approvals------------------------------------------------------------------------------------------------------------
 
 

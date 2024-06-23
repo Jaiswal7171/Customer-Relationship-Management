@@ -1,5 +1,6 @@
 
-import Admin from '../../model/admin/admin_m.js';
+import admin from '../../model/admin/admin_m.js';
+import Email from '../../model/admin/mail_m.js';
 import Service from '../../model/admin/service_m.js';
 import CompanyDetails from '../../model/admin/company_Details_m.js';
 import Category from '../../model/admin/category_m.js';
@@ -267,15 +268,22 @@ static addEventsGallery = async (req, res) => {
 } 
 
 static saveeventsgallery = async (req, res) => {
-  const { filename } = req.file; 
+  const files = req.files;  
   try {
-    // Assuming Gallery model is properly imported and defined
-    const data = await EventsGallery.create({ image: filename }); 
-    res.json(data);
+
+      const data = await EventsGallery.bulkCreate(
+        files.map(file => ({ image: file.filename }))
+      );
+      res.json(data);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 }
+
+
+
+
+
 
 
 // -------------------------------------------------------------------------------------Add Ocasion Gallery--------------------------------------------------------------------------------------------------------->
@@ -335,6 +343,33 @@ static leavesform = async(req,res) => {
 
 
 
+
+
+// -------------------------------------------------- Send Email ------------------------------------------------------------------------------------------------------------
+
+
+static sendmail = async (req, res) => {
+  try {
+      const admin_mail = await admin.findAll();
+      const getemployeemail = await Employee.findAll();
+      res.render('admin/add.ejs', {  section: "sendEmail" , getemployeemail , admin_mail}); // Render the view
+  } catch (error) {
+      console.error('Error fetching services:', error);
+      res.status(500).json({ error: 'Error fetching services' }); // Send JSON response in case of error
+  }
+}
+
+
+static saveemail = async (req,res)=>{
+  try{
+    const getdata = await Email.create(req.body);
+    res.json(getdata);
+
+  }catch(e){
+    console.error('Error fetching services:', error);
+    res.status(500).json({ error: 'Error fetching services' }); // Send JSON response in case of error
+  }
+}
 
 
 }

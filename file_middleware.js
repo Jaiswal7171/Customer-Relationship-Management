@@ -15,19 +15,6 @@ const gallery = multer({ storage });
 
 
 
-// EventsGallery storage configuration
-const eventsGalleryStorage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, './uploads/EventsGallery');
-    },
-    filename: function (req, file, cb) {
-        cb(null, Date.now() + '-' + file.originalname) // specify the filename format
-    }
-});
-
-const EventGallery = multer({ storage: eventsGalleryStorage });
-
-
 
 
 
@@ -62,4 +49,29 @@ const employeePhoto = multer.diskStorage({
 
 
 
-export  { gallery, EventGallery , occasionGallery , uploadEmployeeProfile };
+
+
+
+
+
+
+
+  
+// EventsGallery storage configuration
+const eventsGalleryStorage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './uploads/EventsGallery');
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + '-' + file.originalname) // specify the filename format
+    }
+});
+
+const EventGallery = multer({ storage: eventsGalleryStorage });
+const multipleevent = EventGallery.array('image', 10);
+
+
+
+
+
+export  { gallery, multipleevent , occasionGallery , uploadEmployeeProfile };
