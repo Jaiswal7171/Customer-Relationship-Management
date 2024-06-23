@@ -217,7 +217,18 @@
              <div class="col-xxl-12">
                  <div class="panel">
                      <div class="panel-header">
-                         <h5>Leads Details</h5>
+
+
+                        <svg class="orange-circle" width="10" height="10">
+                            <circle cx="5" cy="5" r="5" fill="orange"/>
+                          </svg> 
+                          <small> : Add From Dashboard</small> &nbsp;
+
+                                  <small><svg class="orange-circle" width="10" height="10">
+                                  <circle cx="5" cy="5" r="5" fill="black"/>
+                                 </svg> :  Imported LEads</small>
+
+
                          <div id="tableSearch"></div>
                      </div>
                      <div class="panel-body">
@@ -225,6 +236,7 @@
                             <thead>
                                 <tr>
                                     <th>Order ID</th>
+                                    <th>AddToClient</th>
                                     <th>Company Name</th>
                                     <th>Employee Name</th>
                                     <th>Company Mobile</th>
@@ -234,7 +246,6 @@
                                     <th>Address</th>
                                     <th>City</th>
                                     <th>State</th>
-                                    <th>Employee Name</th>
                                     <th>Call Date</th>
                                     <th>Call Time</th>
                                     <th>Timestamp</th>
@@ -246,7 +257,7 @@
                                     docs.forEach((item, index) => { %>
                                         <tr>
                                             <td><%= index + 1 %></td>
-
+                                            <td><a href="/admin/addclients?id=<%= item.id %>" target="_blank"><i class='fas fa-user-tie'></i></a></td>
                                             <% if (item.d_id == 1) { %> <!-- Checking item.d_id for conditional formatting -->
                                                 <td class="text-warning"><%= item.companyName %></td>
                                             <% } else { %>
@@ -260,7 +271,7 @@
                                             <td><%= item.address %></td>
                                             <td><%= item.city %></td>
                                             <td><%= item.state %></td>
-                                            <td><%= item.Employee.employee_name %></td> <!-- Display employee name -->
+                                         
                                             <td><%= item.callDate %></td>
                                             <td><%= item.callTime %></td>
                                             <td><%= item.timestamp %></td>
@@ -1283,14 +1294,9 @@
                 </div>
             </div>
         </div>
-        <!-- const date1 = moment('2022-01-01');
-        const date2 = moment('2022-01-10');
-        
-        // Calculate the difference in days
-        const diffInDays = date2.diff(date1, 'days');
-        
-        console.log(diffInDays);  // Output: 9
-         -->
+    
+
+
 
 
  <% } %>

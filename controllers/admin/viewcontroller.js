@@ -7,7 +7,7 @@ import Service from '../../model/admin/service_m.js';
 import Manager from '../../model/admin/manager_m.js';
 import Target from '../../model/admin/target_m.js';
 import Leaves from '../../model/admin/leaves_m.js';
-
+import Clients from '../../model/admin/clients_m.js';
 
 class Viewcontroller {
 
@@ -270,11 +270,18 @@ static displayleaves = async (req, res) => {
     }
 }
 
+// --------------------------------------------------------------------------clients------------------------------------------------------------------------------------------------------------
 
-
-
-
-
+static getclients = async (req, res) => {
+    try {
+        const clientsdata = await Clients.findAll({});
+        res.render('admin/view.ejs', { section: 'get_clients',  data : clientsdata});
+        // res.status(201).json({clientsdata});
+    } catch (error) {
+        console.error('Error retrieving company details:', error);
+        res.status(500).json({ error: 'Error retrieving company details' });
+    }
+}
 
 
 

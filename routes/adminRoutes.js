@@ -2,7 +2,7 @@ import express from 'express';
 import AddController from '../controllers/admin/addcontroller.js';
 import Viewcontroller from '../controllers/admin/viewcontroller.js';
 import Deletecontroller from '../controllers/admin/deletecontroller.js';
-import { gallery, multipleevent, occasionGallery, uploadEmployeeProfile } from '../file_middleware.js';
+import { gallery, multipleevent, occasionGallery, uploadEmployeeProfile , mailimagessave } from '../file_middleware.js';
 const router = express.Router();
 
 
@@ -96,8 +96,8 @@ router.get('/workdetails',Viewcontroller.work_details);
 
 
 //Mail 
-router.get('/mail',AddController.sendmail);  
-router.post('/savemail',AddController.saveemail);  
+// router.get('/mail',AddController.sendmail);  
+// router.post('/savemail',mailimagessave,AddController.saveemail);  
 
 //Add Gallery Routes
 router.get('/addgallery', AddController.addimage);
@@ -116,6 +116,8 @@ router.get('/occasion',AddController.addOccasionGallery);
 router.post('/saveoccasion', occasionGallery.single('image'), AddController.saveOccasiongallery); 
 
 
+
+router.get('/addclients',AddController.clientsform);
 
 
 

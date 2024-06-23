@@ -1,6 +1,6 @@
 
 import admin from '../../model/admin/admin_m.js';
-import Email from '../../model/admin/mail_m.js';
+
 import Service from '../../model/admin/service_m.js';
 import CompanyDetails from '../../model/admin/company_Details_m.js';
 import Category from '../../model/admin/category_m.js';
@@ -12,6 +12,7 @@ import Target from '../../model/admin/target_m.js';
 import Gallery from '../../model/admin/gallery_m.js';
 import EventsGallery from '../../model/admin/EventsGallery_m.js';
 import Leaves from '../../model/admin/leaves_m.js';
+import Customer from '../../model/admin/customers_m.js';
 import Occasiongallery from '../../model/admin/occasionGallery_m.js';
 import {  generateToken } from '../../middleware.js'; // middleware for genrate token
  
@@ -344,32 +345,16 @@ static leavesform = async(req,res) => {
 
 
 
+// -------------------------------------------------------------------------------------clients form--------------------------------------------------------------------------------------------------------->
 
-// -------------------------------------------------- Send Email ------------------------------------------------------------------------------------------------------------
-
-
-static sendmail = async (req, res) => {
-  try {
-      const admin_mail = await admin.findAll();
-      const getemployeemail = await Employee.findAll();
-      res.render('admin/add.ejs', {  section: "sendEmail" , getemployeemail , admin_mail}); // Render the view
-  } catch (error) {
-      console.error('Error fetching services:', error);
-      res.status(500).json({ error: 'Error fetching services' }); // Send JSON response in case of error
+  static clientsform = async(req,res) => {
+    const getleadid = req.query.id;
+    const getleaddata = await Customer.findByPk(getleadid);
+    res.render('admin/add.ejs', {section :"addclientsform" , allleaddata : getleaddata});
   }
-}
+  
 
 
-static saveemail = async (req,res)=>{
-  try{
-    const getdata = await Email.create(req.body);
-    res.json(getdata);
-
-  }catch(e){
-    console.error('Error fetching services:', error);
-    res.status(500).json({ error: 'Error fetching services' }); // Send JSON response in case of error
-  }
-}
 
 
 }

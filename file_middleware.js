@@ -1,6 +1,9 @@
 import multer from 'multer';
 
-// Gallery storage configuration
+// -------------------------------------------------------------Gallery image save-----------------------------------------------------------------------------
+
+
+
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, './uploads/gallery');
@@ -13,6 +16,9 @@ const storage = multer.diskStorage({
 const gallery = multer({ storage });
 
 
+
+
+// -------------------------------------------------------------occasion image save-----------------------------------------------------------------------------
 
 
 
@@ -31,10 +37,8 @@ const occasionImages = multer.diskStorage({
 const occasionGallery = multer({ storage: occasionImages });
 
 
+// -------------------------------------------------------------Employee Profile Photo save-----------------------------------------------------------------------------
 
-// 
-
-// Configure multer for storing employee profile photos
 const employeePhoto = multer.diskStorage({
     destination: function(req, file, cb) {
       cb(null, './uploads/employeeProfile');
@@ -48,16 +52,11 @@ const employeePhoto = multer.diskStorage({
 
 
 
-
-
-
-
-
-
-
-
   
-// EventsGallery storage configuration
+// -------------------------------------------------------------Event gallery Save-----------------------------------------------------------------------------
+
+
+
 const eventsGalleryStorage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, './uploads/EventsGallery');
@@ -72,6 +71,20 @@ const multipleevent = EventGallery.array('image', 10);
 
 
 
+// -------------------------------------------------------------mail gallery  Save-----------------------------------------------------------------------------
 
 
-export  { gallery, multipleevent , occasionGallery , uploadEmployeeProfile };
+const mailattachement = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './uploads/mailattachment');
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + '-' + file.originalname) // specify the filename format
+    }
+});
+
+const mailimage = multer({ storage: mailattachement });
+const mailimagessave = mailimage.array('image', 10);
+
+
+export  { gallery, multipleevent , occasionGallery , uploadEmployeeProfile , mailimagessave };
