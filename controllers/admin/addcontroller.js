@@ -349,11 +349,11 @@ static leavesform = async(req,res) => {
 // -------------------------------------------------------------------------------------clients form--------------------------------------------------------------------------------------------------------->
 
 static clientsform = async (req, res) => {
+
+
   try {
     const getleadid = req.query.id;
     const getleaddata = await Customer.findByPk(getleadid);
-
-
     const sendsubservices = await Subservice.findAll({
       include: [
         {
@@ -371,7 +371,10 @@ static clientsform = async (req, res) => {
       section: "addclientsform",
       allleaddata: getleaddata,
       subservice: sendsubservices,
-    });
+    }
+  
+  
+  );
   } catch (error) {
     console.error('Error in clientsform method:', error);
     // Handle error appropriately, e.g., render an error page or send an error response
@@ -380,12 +383,24 @@ static clientsform = async (req, res) => {
 }
 
 
-
 static getClientDetails = async (req, res) => {
-  const getLeadId = req.query.id;
   try {
-    const allClientData = req.body; 
-    res.render('admin/add.ejs', { section: "invoice", clientdata: allClientData });
+    const allClientData = req.body;
+    const getid = allClientData.chooseservice; // get subservice id
+    const selectedSubservices = await Subservice.findAll({
+      where: { id: getid },
+      include: [
+        {
+          model: Category,
+          attributes: ['category_name'], // attributes should be an array of strings
+        },
+        {
+          model: Service,
+          attributes: ['service_name'],
+        },
+      ]
+    }); // fetch data from subservice table where we get id
+    res.render('admin/add', { section: "invoice", clientdata: allClientData, chooseservicedata: selectedSubservices });
   } catch (error) {
     console.error("Error retrieving client details:", error);
     res.status(500).send("Error retrieving client details");
