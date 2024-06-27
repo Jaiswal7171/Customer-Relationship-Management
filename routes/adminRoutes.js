@@ -118,7 +118,8 @@ router.post('/saveoccasion', occasionGallery.single('image'), AddController.save
 
 
 router.get('/addclients',AddController.clientsform);
+router.post('/getinvoice',AddController.getClientDetails);
 
-
+// router.get('/invoice',AddController.getinvoice);
 
 export default router;

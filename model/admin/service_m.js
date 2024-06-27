@@ -3,6 +3,14 @@ import sequelize from "../../connection/db.js";
 import Category from './category_m.js';
 
 const Service = sequelize.define('Service', {
+
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+      },
+
+      
     service_name: {
         type: DataTypes.STRING
     },

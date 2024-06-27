@@ -2,6 +2,7 @@
 import admin from '../../model/admin/admin_m.js';
 
 import Service from '../../model/admin/service_m.js';
+import Subservice from '../../model/admin/subservices_m.js';
 import CompanyDetails from '../../model/admin/company_Details_m.js';
 import Category from '../../model/admin/category_m.js';
 import Employee from '../../model/admin/employe_m.js';
@@ -347,14 +348,53 @@ static leavesform = async(req,res) => {
 
 // -------------------------------------------------------------------------------------clients form--------------------------------------------------------------------------------------------------------->
 
-  static clientsform = async(req,res) => {
+static clientsform = async (req, res) => {
+  try {
     const getleadid = req.query.id;
     const getleaddata = await Customer.findByPk(getleadid);
-    res.render('admin/add.ejs', {section :"addclientsform" , allleaddata : getleaddata});
+
+
+    const sendsubservices = await Subservice.findAll({
+      include: [
+        {
+          model: Category,
+          attributes: ['category_name'], // attributes should be an array of strings
+        },
+        {
+          model: Service,
+          attributes: ['service_name'],
+        },
+      ],
+    });
+
+    res.render('admin/add.ejs', {
+      section: "addclientsform",
+      allleaddata: getleaddata,
+      subservice: sendsubservices,
+    });
+  } catch (error) {
+    console.error('Error in clientsform method:', error);
+    // Handle error appropriately, e.g., render an error page or send an error response
+    res.status(500).send('Error fetching data');
   }
+}
+
+
+
+static getClientDetails = async (req, res) => {
+  const getLeadId = req.query.id;
+  try {
+    const allClientData = req.body; 
+    res.render('admin/add.ejs', { section: "invoice", clientdata: allClientData });
+  } catch (error) {
+    console.error("Error retrieving client details:", error);
+    res.status(500).send("Error retrieving client details");
+  }
+};
+
   
 
-
+ 
 
 
 }
