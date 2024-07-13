@@ -498,113 +498,102 @@
 
 <% } else if (section === 'workdetails') { %>
 
-
-    <!-- main sidebar end -->
-
-    <!-- main content start -->
+   
     <div class="main-content">
         <div class="dashboard-breadcrumb mb-25">
-            <h2>Work Deatils</h2>
+            <h2>Work Details</h2>
             <div class="input-group dashboard-filter">
                 <input type="text" class="form-control" name="basic" id="dashboardFilter" readonly>
                 <label for="dashboardFilter" class="input-group-text"><i class="fa-light fa-calendar-days"></i></label>
             </div>
         </div>
-        <!-- <div class="row mb-25">
-            <div class="col-lg-3 col-6 col-xs-12">
-                <div class="dashboard-top-box dashboard-top-box-2 rounded border-0 panel-bg">
-                    <div class="left">
-                        <p class="d-flex justify-content-between mb-2">Total Employees</p>
-                        <h3 class="fw-normal">134,152</h3>
-                        <p class="text-muted"><small>124 for last month</small></p>
-                    </div>
-                    <div class="right">
-                        <div class="part-icon text-light rounded">
-                            <span><i class="fa-light fa-user-plus"></i></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-6 col-xs-12">
-                <div class="dashboard-top-box dashboard-top-box-2 rounded border-0 panel-bg">
-                    <div class="left">
-                        <p class="d-flex justify-content-between mb-2">Campaign Sent</p>
-                        <h3 class="fw-normal">12,412</h3>
-                        <p class="text-muted"><small>4 for last month</small></p>
-                    </div>
-                    <div class="right">
-                        <div class="part-icon text-light rounded">
-                            <span><i class="fa-light fa-bullhorn"></i></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-6 col-xs-12">
-                <div class="dashboard-top-box dashboard-top-box-2 rounded border-0 panel-bg">
-                    <div class="left">
-                        <p class="d-flex justify-content-between mb-2">Annual Profit</p>
-                        <h3 class="fw-normal">$134,152</h3>
-                        <p class="text-muted"><small>124 for last month</small></p>
-                    </div>
-                    <div class="right">
-                        <div class="part-icon text-light rounded">
-                            <span><i class="fa-light fa-dollar-sign"></i></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-6 col-xs-12">
-                <div class="dashboard-top-box dashboard-top-box-2 rounded border-0 panel-bg">
-                    <div class="left">
-                        <p class="d-flex justify-content-between mb-2">Lead Conversation</p>
-                        <h3 class="fw-normal">52%</h3>
-                        <p class="text-muted"><small>124 for last month</small></p>
-                    </div>
-                    <div class="right">
-                        <div class="part-icon text-light rounded">
-                            <span><i class="fa-light fa-magnifying-glass-chart"></i></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-        <div class="row">
-          
-            <div class="col-xxl-12 col-md-12">
+            <div class="row">
+            <div class="col-xxl-12">
                 <div class="panel">
-                    <div class="panel-header">              
- 
+                    <div class="panel-header">
                         <h5> <i><%= data[0].Employee.employee_name %>  Work Details </i></h5>
-
-                        <div class="btn-box">
-                            <a href="" class="btn btn-sm btn-primary">Profile</a>
-                        </div>
+                        <div id="tableSearch"></div>
                     </div>
                     <div class="panel-body">
-                        <ul class="hr-recent-activity">
-                            <% data.forEach(detail => { %>
-                                <li>
-                                    <div class="left">
-                                        <span class="activity-name"><%= detail.ProjectName %> &nbsp; || &nbsp;  <span class="text-secondary"><i><%= detail.TaskName %> || &nbsp; 
-
-                                        </span>    <small>[ <span class="text-warning">Assign Date</span> - <i><%= detail.ProjectAssignDate %></i>  |  <span class="text-warning">End Date - </span><i><%= detail.ProjectAssignDate %></i>]</small></span>
-                                        <span class="activity-short"><%= detail.description %> </span>
-                                    </div>
-                                    <div class="right">
-                                        <span class="activity-time"><%= new Date(detail.createdAt).toLocaleString() %></span>
-                                    </div>
-                                 
-                                </li>
-                                
-                            <% }) %>
-                        </ul>
+                        <style>
+                            /* Container style for the Description cell */
+                            .description-cell {
+                                max-width: 300px; /* Adjust width as needed */
+                                overflow-x: auto;
+                                white-space: nowrap;
+                            }
+                        
+                            /* Custom scrollbar styling for WebKit browsers */
+                            .description-cell::-webkit-scrollbar {
+                                width: 10px; /* Width of the scrollbar */
+                            }
+                        
+                            .description-cell::-webkit-scrollbar-thumb {
+                                background-color: #888; /* Color of the scrollbar thumb */
+                                border-radius: 5px; /* Rounded corners of the scrollbar thumb */
+                            }
+                        
+                            .description-cell::-webkit-scrollbar-thumb:hover {
+                                background-color: #555; /* Color of the scrollbar thumb on hover */
+                            }
+                        
+                            .description-cell::-webkit-scrollbar-track {
+                                background: #f1f1f1; /* Color of the scrollbar track */
+                            }
+                        
+                            /* Custom scrollbar styling for Firefox */
+                            .description-cell {
+                                scrollbar-width: thin; /* Thin scrollbar */
+                                scrollbar-color: #888 #f1f1f1; /* Scrollbar thumb and track colors */
+                            }
+                        </style>
+                        
+                        
+                        
+                        <table class="table table-dashed recent-order-table" id="myTable">
+                            <thead>
+                                <tr>
+                                    <th>SrNo.</th>
+                                    <th>ProjectName</th>
+                                    <th>TaskName</th>
+                                    <th>ProjectAssignDate</th>
+                                    <th>EndDate</th>
+                                    <th>Description</th>
+                                    <th>createdAt</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% if (data && data.length) {
+                                    data.forEach((detail, index) => { %>
+                                        <tr>
+                                            <td><%= index + 1 %></td>
+                                            <td><%= detail.ProjectName %></td>
+                                            <td><%= detail.TaskName %></td>
+                                            <td><%= detail.ProjectAssignDate %></td>
+                                            <td><%= detail.ProjectAssignDate %></td>
+                                            <td class="description-cell">
+                                                <div class="description-content">
+                                                    <%= detail.description %>
+                                                </div>
+                                            </td>
+                                            <td><%= new Date(detail.createdAt).toLocaleString() %></td>
+                                        </tr>
+                                    <% });
+                                } else { %>
+                                    <tr>
+                                        <td colspan="15">No orders found</td>
+                                    </tr>
+                                <% } %>
+                            </tbody>
+                        </table>
+                        
+                        
+                        <div class="table-bottom-control"></div>
                     </div>
                 </div>
             </div>
-            
-           
-          
         </div>
+
 <!----------------------------------------------------------------------------------View Service Section----------------------------------------------------------------------------------->
 
     

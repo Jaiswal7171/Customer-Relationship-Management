@@ -9,7 +9,7 @@ const sequelize = new Sequelize('bpo', 'root', '', {
 });
 
 // Test the connection
-async function testConnection() {
+async function testConnection() { 
   try {
     await sequelize.authenticate();
     console.log('Connection to the database has been established successfully.');

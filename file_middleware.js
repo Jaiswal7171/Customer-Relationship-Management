@@ -38,6 +38,8 @@ const occasionGallery = multer({ storage: occasionImages });
 
 
 // -------------------------------------------------------------Employee Profile Photo save-----------------------------------------------------------------------------
+   
+
 
 const employeePhoto = multer.diskStorage({
     destination: function(req, file, cb) {

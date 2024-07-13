@@ -8,21 +8,25 @@ import Manager from '../../model/admin/manager_m.js';
 import Target from '../../model/admin/target_m.js';
 import Leaves from '../../model/admin/leaves_m.js';
 import Clients from '../../model/admin/clients_m.js';
+import I_Lead from '../../model/admin/Imported_lead_m.js';
 
 class Viewcontroller {
 
 
-
     static indexpage = async (req, res) => {
         try {
-          res.render('admin/index.ejs');
+            const importedlead = await I_Lead.count(); 
+            const allcustomers = await Customers.count(); 
+            const dcustomers = await Customers.count(); 
+            const clientscount = await Clients.count(); 
+            const totaldata = importedlead + dcustomers; 
+            res.render('admin/index.ejs', { leadcount : importedlead  ,  customerscount : dcustomers ,  totalleads : totaldata , totalclients : clientscount  ,   customers : allcustomers});
         } catch (error) {
-          console.error(error);
-          res.status(500).json({ error: 'Server Error' });
+            console.error(error);
+            res.status(500).json({ error: 'Server Error' });
         }
-      }
-
-      
+    }
+    
 
       
 

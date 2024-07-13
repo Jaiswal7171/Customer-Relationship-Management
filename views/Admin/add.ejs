@@ -88,9 +88,37 @@
                                             <div class="col-xxl-4 col-lg-4 col-sm-4">
                                                 <label class="form-label">Employee Name</label>
                                                 <input type="text" name="employee_name" class="form-control form-control-sm" pattern="[A-Za-z ]+" title="Only letters are allowed" required>
-
                                             </div>
                                         
+                                            <div class="col-xxl-4 col-lg-4 col-sm-4">
+                                                <label class="form-label">Employee Gender</label>
+                                                <select name="gender" class="form-select form-select-sm mt-2" required>
+                                                    <option value="">Choose</option>
+                                                    <option value="Male">Male</option>
+                                                    <option value="Female">Female</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="col-xxl-4 col-lg-4 col-sm-4">
+                                                <label class="form-label">Employee City</label>
+                                                <select name="city" class="form-select form-select-sm mt-2" required>
+                                                    <option value="">Choose</option>
+                                                    <option value="Pune">Pune</option>
+                                                    <option value="Mumbai">Mumbai</option>
+                                                </select>
+                                            </div>
+
+
+                                            <div class="col-xxl-4 col-lg-4 col-sm-4">
+                                                <label class="form-label">Employee State</label>
+                                                <select name="state" class="form-select form-select-sm mt-2" required>
+                                                    <option value="">Choose</option>
+                                                    <option value="Maharashtra">Maharashtra</option>
+                                                </select>
+                                            </div>
+                                        
+
+
                                             <div class="col-xxl-4 col-lg-4 col-sm-4">
                                                 <label class="form-label">Employee Email</label>
                                                 <input type="text" name="email" class="form-control form-control-sm" required>
@@ -118,7 +146,7 @@
 
                                             <div class="col-xxl-4 col-lg-4 col-sm-4">
                                                 <label class="form-label">Designation</label>
-                                                <select name="managerid" class="form-select form-select-sm mt-2" required>
+                                                <select name="designation" class="form-select form-select-sm mt-2" required>
                                                     <option value="">Choose</option>
                                                     <option value="sales_executive">Sales Executive</option>
                                                     <option value="digital_marketing_manager">Digital Marketing Manager</option>
@@ -127,6 +155,22 @@
                                                     <option value="content_strategist">Content Strategist</option>
                                                 </select>
                                             </div>
+
+
+                                            
+                                            <div class="col-xxl-4 col-lg-4 col-sm-4">
+                                                <label class="form-label">Experience</label>
+                                                <select name="experience" class="form-select form-select-sm mt-2" required>
+                                                    <option value="">Choose</option>
+                                                    <option value="fresher">Fresher</option>
+                                                    <option value="1_year">More Than 1 Year</option>
+                                                    <option value="3_years">More Than 3 Years</option>
+                                                    <option value="5_years">More Than 5 Years</option>
+                                                    <option value="10_years">More Than 10 Years</option>
+                                                    <option value="15_years">More Than 15 Years</option>
+                                                </select>
+                                            </div>
+                                            
                                             
 
                                             <div class="col-xxl-4 col-lg-4 col-sm-4"> <!-- Adjusted grid layout -->
@@ -153,7 +197,7 @@
                                                 <input type="file" name="profile_photo" class="form-control form-control-sm">
                                             </div>
 
-                                            <div class="col-xxl-4 col-lg-4 col-sm-4">
+                                            <div class="col-xxl-4 col-lg-4 col-sm-4">0
                                                 <label class="form-label">AadharCard</label>
                                                 <input type="file" name="adhar_card_image" class="form-control form-control-sm" >
                                             </div>
@@ -163,6 +207,18 @@
                                                 <label class="form-label">ExperinceLetter</label>
                                                 <input type="file" name="experience_letter" class="form-control form-control-sm" >
                                             </div>
+
+                                            <div class="col-xxl-4 col-lg-4 col-sm-4">
+                                                <label class="form-label">Resume</label>
+                                                <input type="file" name="resume" class="form-control form-control-sm" >
+                                            </div>
+
+                                            <div class="col-xxl-4 col-lg-4 col-sm-4">
+                                                <label class="form-label">Portfolio Link</label>
+                                                <input type="url" name="portfolio_link" class="form-control form-control-sm" >
+                                            </div>
+
+
 
                                             <div class="col-xxl-4 col-lg-4 col-sm-4">
                                                 <label class="form-label">CreatePassword</label>
@@ -900,7 +956,7 @@
                             <div class="col-xl-4 col-lg-5 col-sm-6">
                                 <div class="shop-address">
                                     <div class="logo mb-20">
-                                        <img src="assets/images/logo-big.png" alt="Logo">
+                                        <img src="../assets/images/logo-black.png" alt="Logo">
                                     </div>
                                     <div class="part-txt">
                                         <p class="mb-1">BrightSea Technology</p>
@@ -918,7 +974,7 @@
                                             <select class="form-control">
                                                 <option value="0">Paid</option>
                                                 <option value="1">Unpaid</option>
-                                                <option value="2">Partial</option>
+                                                <option value="2">Pending</option>
                                             </select>
                                         </div>
                                     </div>
@@ -945,10 +1001,10 @@
                                     <div class="info-card">
                                         <p class="text-dark">Customer Information:</p>
                                         <ul class="p-0">
-                                            <li><span>Name      : </span><input type="text" name="owner_name" placeholder="ownerName" required></li>
-                                            <li><span>Address   : </span><input type="text" name="owner_name" placeholder="ownerName" required></li>
-                                            <li><span>ContactNo : </span><input type="text" name="owner_name" placeholder="ownerName" required></li>
-                                            <li><span> Email     : </span><input type="text" name="owner_name" placeholder="Enter Customer Email" required></li>
+                                            <li><span>Name      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;: </span><input type="text" name="owner_name" placeholder="ownerName" required></li>
+                                            <li><span>Address   &nbsp; &nbsp; &nbsp; &nbsp;: </span><input type="text" name="owner_name" placeholder="ownerName" required></li>
+                                            <li><span>PhoneNo   &nbsp; &nbsp;&nbsp;: </span><input type="text" name="owner_name" placeholder="ownerName" required></li>
+                                            <li><span> Email    &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;: </span><input type="text" name="owner_name" placeholder="Enter Customer Email" required></li>
 
                                         </ul>
                                     </div>
@@ -995,47 +1051,42 @@
                                     <tbody>
                                      <% chooseservicedata.forEach((item, index) => { %>
                                          <tr>
-                                            <td>1</td> 
+                                            <td><%= index + 1 %></td> 
                                             <td><%= item.Category.category_name %></td> 
                                             <td><%= item.Service.service_name %></td> 
                                             <td><%= item.subservice_name %></td>
-                                            <td><%= item.charges %></td>
+                                            <td class="companyrate"><%= item.charges %></td>
+
                                             <td>
-                                                <input type="number" placeholder="Enter Final Prize" name="finalPrize" id="finalPrizeInput">
-                                              </td>
+                                                <input type="number" placeholder="Enter Final Prize" name="finalPrize" class="finalPrizeInput" data-index="<%= index %>">
+                                            </td>
                                          </tr>
                                      <% }) %>
                                  </tbody>
-                                </table>
-                            </div>
+                                </table>    
+                            </div><br>
                         <div class="total-payment-area row justify-content-end mb-25">
                             <div class="col-md-4 col-sm-6">
                                 <ul>
-                                    <li class="d-flex justify-content-between">Net Total:<span>282.00</span></li>
+                                    <li class="d-flex justify-content-between">
+                                        Original charges Total : <span id="totals"></span>
+                                    </li>
                                     <li class="d-flex justify-content-between">Shipping Cost:<span>0</span></li>
                                     <li class="d-flex justify-content-between">Vat:<span>0</span></li>
-                                    <li class="d-flex justify-content-between">Total:<span id="totalSpan">0.00</span></li>
+                                    <li class="d-flex justify-content-between">Final Total: <span id="sumHeading">0.00</span></li>
                                 </ul>
                             </div>
-                        </div>
+                        </div><br>
                         <p class="invoice-note text-center mb-0">Please check your parcel carefully, Please check your parcel carefully, Please check your parcel carefully</p>
                     </div>
                 </div>
 
-                <script>
-                    const finalPrizeInput = document.getElementById('finalPrizeInput');
-                    const totalSpan = document.getElementById('totalSpan');
                 
-                    finalPrizeInput.addEventListener('input', function() {
-                      const finalPrize = parseFloat(this.value) || 0;
-                      totalSpan.textContent = finalPrize.toFixed(2);
-                    });
-                  </script>
 
                   
                 <div class="panel-body border-top">
                     <div class="btn-box d-flex justify-content-end gap-2">
-                        <button class="btn btn-sm btn-primary" id="printInvoice"><i class="fa-light fa-print"></i> Print</button>
+                        <button class="btn btn-sm btn-primary"  onclick="window.print()" ><i class="fa-light fa-print"></i> Print</button>
                     </div>
                 </div>
             </div>

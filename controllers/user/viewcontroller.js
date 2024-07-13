@@ -33,10 +33,10 @@ class UserViewController {
                 limit: 5
             });
             
-            const allimportdata = await I_Lead.findAll(); // Fetch all data
+            // const allimportdata = await I_Lead.findAll(); // Fetch all data
             const importtotalCount = await I_Lead.count(); // Get total count of records
             const clients_count = await Clients.count();
-            const leadfind = await Customers.findAll();
+            // const leadfind = await Customers.findAll();
             const leadCount = await Customers.count(); // Get total count of records
             
             // const snapmessage = await SnapMessage.findAll();
