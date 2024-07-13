@@ -76,7 +76,7 @@
             <div class="col-xxl-8">
                 <div class="panel">
                     <div class="panel-header">
-                        <h5>All Leads</h5>
+                        <h5>Last 10 Leads</h5>
                         <div id="tableSearch"></div>
                     </div>
                     <div class="panel-body">
@@ -97,7 +97,6 @@
                                     <th>Call Date</th>
                                     <th>Call Time</th>
                                     <th>Timestamp</th>
-                               
                                 </tr>
                             </thead>
                             <tbody>
@@ -111,7 +110,7 @@
                                             <% } else { %>
                                                 <td><%= item.companyName %></td>
                                             <% } %>   
-                                            <td><%= item.Employee.employee_name %></td>
+                                            <td><%= item.companyMobile %></td>
                                             <td><%= item.companyMobile %></td>
                                             <td><%= item.whatsappNumber %></td>
                                             <td><%= item.companyCategory %></td>
@@ -119,10 +118,9 @@
                                             <td><%= item.address %></td>
                                             <td><%= item.city %></td>
                                             <td><%= item.state %></td>
-                                         
                                             <td><%= item.callDate %></td>
                                             <td><%= item.callTime %></td>
-                                            <td><%= item.timestamp %></td>
+                                            <td><%= item.createdAt.toLocaleString() %></td>
                                          
                                         </tr>
                                     <% });
@@ -138,4 +136,6 @@
                 </div>
             </div>
         </div>
+
+
         <%- include('footer.ejs') %>

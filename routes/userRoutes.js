@@ -8,6 +8,9 @@ import   { authenticate}  from './../middleware.js';
 
 router.get('/',UserAddController.loginpage);  
 router.post('/userlogin',UserAddController.login_user);
+
+
+
 router.get('/dashboard',authenticate,UserViewController.indexpage);
 
 
@@ -53,7 +56,7 @@ router.put('/updateTask/:id',authenticate,UserViewController.updateUser);
 
 
 //employeeProfile
-router.get('/profile',UserViewController.getEmployeeProfile);
+router.get('/profile',authenticate,UserViewController.getEmployeeProfile);
 
 //clients
 router.get('/clients',UserViewController.getclients);

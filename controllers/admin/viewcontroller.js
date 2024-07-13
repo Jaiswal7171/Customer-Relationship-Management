@@ -8,18 +8,23 @@ import Manager from '../../model/admin/manager_m.js';
 import Target from '../../model/admin/target_m.js';
 import Leaves from '../../model/admin/leaves_m.js';
 import Clients from '../../model/admin/clients_m.js';
-import I_Lead from '../../model/admin/Imported_lead_m.js';
+import EventsGallery from '../../model/admin/EventsGallery_m.js';
+import Occasiongallery from '../../model/admin/occasionGallery_m.js';
+import CompanyDetails from '../../model/admin/company_Details_m.js';
+import Gallery from '../../model/admin/gallery_m.js';
 
 class Viewcontroller {
 
 
     static indexpage = async (req, res) => {
         try {
-            const importedlead = await I_Lead.count(); 
-            const allcustomers = await Customers.count(); 
+            const importedlead = await Customers.count({ where :{ d_id :null}}); 
+            const allcustomers = await Customers.findAll({  order: [['id', 'DESC']], limit: 10 }); 
             const dcustomers = await Customers.count(); 
             const clientscount = await Clients.count(); 
             const totaldata = importedlead + dcustomers; 
+
+            
             res.render('admin/index.ejs', { leadcount : importedlead  ,  customerscount : dcustomers ,  totalleads : totaldata , totalclients : clientscount  ,   customers : allcustomers});
         } catch (error) {
             console.error(error);
@@ -289,6 +294,28 @@ static getclients = async (req, res) => {
 
 
 
+
+
+
+
+static getcompanyDetails = async (req, res) => {
+    try {
+        const companyDetails = await CompanyDetails.findOne({});
+        const galleryImages = await Gallery.findAll();
+        const eventgallery = await EventsGallery.findAll();
+        const occasion_gallery = await Occasiongallery.findAll();
+        const clients_count = await Clients.count();
+        res.render('admin/view.ejs', { section: 'company_Details', data: companyDetails , images : galleryImages , event_gallery :eventgallery ,occasion : occasion_gallery , clientcount : clients_count});
+        } catch (error) {
+            console.error('Error retrieving company details:', error);
+            res.status(500).json({ error: 'Error retrieving company details' });
+        }
+    }
+
+
+
 }
+
+
 
 export default Viewcontroller;

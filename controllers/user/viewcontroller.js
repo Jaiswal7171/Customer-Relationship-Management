@@ -25,29 +25,23 @@ class UserViewController {
     static indexpage = async (req, res) => {
         try {
 
-            const loginadmin = req.user;
+            const loginemployeeid = req.user.id; 
+            const docs = await Customers.findAll({where: { employeeId: loginemployeeid }, order: [['createdAt', 'DESC']], limit: 10});
+            const importedlead = await Customers.count({ where :{ d_id :null && employeeId : loginemployeeid}}); 
 
-            const docs = await Customers.findAll({
-                where: { employeeId: 20 },
-                order: [['createdAt', 'DESC']],
-                limit: 5
-            });
-            
-            // const allimportdata = await I_Lead.findAll(); // Fetch all data
-            const importtotalCount = await I_Lead.count(); // Get total count of records
-            const clients_count = await Clients.count();
-            // const leadfind = await Customers.findAll();
-            const leadCount = await Customers.count(); // Get total count of records
-            
-            // const snapmessage = await SnapMessage.findAll();
-    
+            const dcustomers = await Customers.count({where : {employeeId : loginemployeeid}}); 
+            const clientscount = await Clients.count(); 
+            const totaldata = importedlead + dcustomers; 
+
+
+
             res.render('user/index.ejs', { 
                 data: docs, 
-                leadtotalCount: leadCount, 
-                totalimportdataCount: importtotalCount,
-                clients_count :clients_count,
-                loginuser_print : loginadmin
-                // snapmessages: snapmessage // Correctly pass 'snapmessages' here
+                dcustomercount: dcustomers, 
+                clientscount :clientscount,
+                totallead :totaldata,
+                importleadcount : importedlead ,
+                loginuser_print : loginemployeeid
             });
         } catch (error) {
             console.error('Error rendering index page:', error);
@@ -67,7 +61,6 @@ class UserViewController {
     static displaycustomer = async (req, res) => {
         try {
             const getemployeeId = req.user.id; //id ffrom jwt middleware
-            // console.log(employeeId);
             const docs = await Customers.findAll({where:{employeeId:getemployeeId}});
             res.render('user/view.ejs' , {section : 'leads' , docs});
         } catch (error) {
@@ -211,27 +204,8 @@ static getServiceDetails = async (req, res) => {
     }
     
 
-    
-    
 
 
-
-
-
-
-
-
-
-    static getEmployeeProfile = async (req, res) => {
-        try {
-            const docs = await Employee.findOne({ where: { id: 22 } , include: [{ model: Manager, attributes: ['manager_name']}]});
-            res.render('user/view.ejs', { section: 'employee_profile', getData: docs });
-        } catch (error) {
-            console.error('Error retrieving employee profile:', error);
-            res.status(500).json({ error: 'Error retrieving employee profile' });
-        }
-    }
-    
 
 
     static getclients = async (req, res) => {
@@ -276,6 +250,21 @@ static getServiceDetails = async (req, res) => {
 
 
       
+
+    static getEmployeeProfile = async (req, res) => {
+        const getemployeeId = req.user.id; //id ffrom jwt middleware
+        console.log(getemployeeId);
+
+        try {
+            const docs = await Employee.findOne({ where: { id: 7} , include: [{ model: Manager, attributes: ['manager_name']}]});
+            res.render('user/view.ejs', { section: 'employee_profile', getData: docs });
+        } catch (error) {
+            console.error('Error retrieving employee profile:', error);
+            res.status(500).json({ error: 'Error retrieving employee profile' });
+        }
+    }
+    
+
 
 
 

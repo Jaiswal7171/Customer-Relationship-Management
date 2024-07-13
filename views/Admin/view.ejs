@@ -1287,6 +1287,202 @@
 
 
 
+        <!-------------------------------------------------------------------------------------------detail employee leaves----------------------------------------------------------------------------------------------------------->
+
+<% } else if (section === 'company_Details') { %>
+
+        <div class="main-content">
+            <div class="dashboard-breadcrumb mb-25">
+                <h2>Company Details</h2>
+            </div>
+    
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="panel">
+                        <div class="panel-body">
+                            <div class="profile-sidebar">
+                                <hr>
+                                <div class="top">
+                                    <div class="image-wrap">
+                                        <div class="part-img rounded-circle overflow-hidden">
+                                            <img src="assets/images/admin.png" alt="admin">
+                                        </div>
+                                        <button class="image-change"><i class="fa-light fa-camera"></i></button>
+                                    </div>
+                                    <div class="part-txt">
+                                        <h4 class="admin-name"><%= data.company_name %></h4>
+                                        <span class="admin-role"><%= data.company_category %></span>
+                                        <div class="admin-social">
+                                            <a href="<%= data.company_facebook %>"><i class="fa-brands fa-facebook-f"></i></a>
+                                            <a href="<%= data.company_instagram %>"><i class="fa-brands fa-instagram"></i></a>
+                                            <a href="<%= data.company_linkedin %>"><i class="fa-brands fa-linkedin"></i></a>
+                                            <a href="<%= data.company_website %>"><i class="fa fa-trash"></i></a>
+                                           
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bottom">
+                                    <h6 class="profile-sidebar-subtitle">Communication Info</h6>
+                                    <ul>
+                                        <li><span>Ceo Name:</span><%= data.company_website %></li>
+                                        <li><span>Company MobileNo:</span><%= data.company_phone %></li>
+                                        <li><span>Company WhatsAppNo:</span><%= data.company_whatsappNo %></li>
+                                        <li><span>Company Mail:</span><%= data.company_email %></li>
+                                        <li><span>Address:</span><%= data.company_address %></li>
+                                        <li><span>Pincode:</span><%= data.company_pincode %></li>
+                                 
+                                    </ul>
+                                    <h6 class="profile-sidebar-subtitle">About Me</h6>
+                                    <p><%= data.company_details %></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="row mb-25">
+                        <div class="col-lg-4 col-6 col-xs-12">
+                            <div class="dashboard-top-box rounded-bottom panel-bg">
+                                <div class="left">
+                                    <h3><%= clientcount %></h3>
+                                    <p>Our Total Clients</p>
+                                    <a href="/clients">View Details</a>
+                                </div>
+                                <div class="right">
+                                    <span class="text-primary">+16.24%</span>
+                                    <div class="part-icon rounded">
+                                        <span><i class="fa-light fa-bag-shopping"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-6 col-xs-12">
+                            <div class="dashboard-top-box rounded-bottom panel-bg">
+                                <div class="left">
+                                    <h3>10</h3>
+                                    <p>Our Team Members</p>
+                                    <a href="#">Excluding orders in transit</a>
+                                </div>
+                                <div class="right">
+                                    <span class="text-primary">+16.24%</span>
+                                    <div class="part-icon rounded">
+                                        <span><i class="fa-light fa-bag-shopping"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-6 col-xs-12">
+                            <div class="dashboard-top-box rounded-bottom panel-bg">
+                                <div class="left">
+                                    <h3>5</h3>
+                                    <p>Company Branches</p>
+                                    <a href="#">See details</a>
+                                </div>
+                                <div class="right">
+                                    <span class="text-primary">+16.24%</span>
+                                    <div class="part-icon rounded">
+                                        <span><i class="fa-light fa-user"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+    
+    <!-- vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv -->
+    
+    
+    
+    
+    
+                    <div class="panel">
+                        <div class="panel-header">
+                            <h5>Compnay memeories</h5>
+                            <div class="dropdown">
+                                <a href="#" class="btn btn-sm btn-primary">View All</a>
+                            </div>
+                        </div>
+                      
+                        <div class="panel-body">
+                            <div class="swiper responsive-swiper">
+                                <div class="swiper-wrapper">
+    
+    
+                                    <% images.forEach(item => { %>
+                                        <div class="swiper-slide">
+                                            <img src="/gallery/<%= item.image %>" alt="image" style="height: 100px;width: 170px">
+                                        </div>
+                                    <% }) %>
+                                    
+                                    
+                                   
+                                </div>
+                                <div class="swiper-pagination"></div>
+                            </div>
+                        </div>
+    
+    
+                        <!-- 2 -->
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-6 col-sm-6 mb-4"> <!-- Add a margin-bottom class -->
+                                    <div class="panel">
+                                        <div class="panel-body">
+                                            <div class="swiper effect-flip-swiper">
+                                                <div class="swiper-wrapper">
+    
+                                                    <% event_gallery.forEach(item => { %>
+    
+                                                    <div class="swiper-slide">
+                                                        <img src="/EventsGallery/<%= item.image %>" alt="image" style="height: 240px;width: 380px">
+                                                    </div>
+    
+                                                    <% }) %>
+                                                </div>
+                                                <div class="swiper-pagination"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        
+                                <div class="col-lg-6 col-sm-6 mb-4"> <!-- Add a margin-bottom class -->
+                                    <div class="panel">
+                                        <div class="panel-body">
+                                            <div class="swiper effect-creative-swiper">
+                                                <div class="swiper-wrapper">
+    
+                                                    <% occasion.forEach(item => { %>
+    
+    
+                                                    <div class="swiper-slide">
+                                                        <img src="/occasion_images/<%= item.image %>" alt="image"  style="height: 240px;width: 380px">
+                                                    </div>
+    
+                                                    <% }) %>
+    
+    
+                                                </div>
+                                                <div class="swiper-pagination"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+    
+                                    
+                                </div>
+                            </div>
+                        </div>
+    
+                        
+    
+    
+                </div>
+            </div>
+    
+    
+
 
  <% } %>
 
